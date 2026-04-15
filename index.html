@@ -14,7 +14,7 @@
 @media(prefers-color-scheme:dark){:root{--bg:#000;--s:#1C1C1E;--s2:#2C2C2E;--t1:#FFF;--t2:#98989F;--t3:#636366;--sep:rgba(84,84,88,.6)}}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
-body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;background:var(--bg);color:var(--t1);min-height:100dvh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;background:var(--bg);color:var(--t1);min-height:100dvh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
 input,select,textarea{font:inherit;color:inherit}
 
@@ -36,8 +36,12 @@ input,select,textarea{font:inherit;color:inherit}
 .scr{display:none;padding:14px 16px}
 .scr.active{display:block}
 
-/* CARDS */
+/* CARDS / LIST */
 .card{background:var(--s);border-radius:12px;overflow:hidden;margin-bottom:12px}
+.li{background:var(--s);display:flex;align-items:center;padding:13px 16px;gap:12px;border-bottom:1px solid var(--sep)}
+.li:first-child{border-radius:12px 12px 0 0}
+.li:last-child{border-radius:0 0 12px 12px;border-bottom:none}
+.li:only-child{border-radius:12px;border-bottom:none}
 .crow{display:flex;align-items:center;padding:13px 16px;gap:12px;border-bottom:1px solid var(--sep)}
 .crow:last-child{border-bottom:none}
 .cicon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
@@ -52,12 +56,13 @@ input,select,textarea{font:inherit;color:inherit}
 .slbl{font-size:13px;color:var(--t2);margin-top:2px}
 
 /* BADGES */
-.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:100px;font-size:12px;font-weight:600}
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:100px;font-size:12px;font-weight:600;white-space:nowrap}
 .bg{background:rgba(52,199,89,.15);color:var(--g)}
 .by{background:rgba(255,159,10,.15);color:var(--y)}
 .br{background:rgba(255,59,48,.15);color:var(--r)}
 .bb{background:rgba(0,122,255,.15);color:var(--b)}
 .bo{background:var(--al);color:var(--a)}
+.bgr{background:var(--s2);color:var(--t2)}
 
 /* FAB */
 .fab{position:fixed;right:20px;bottom:calc(83px + env(safe-area-inset-bottom,0px) + 14px);z-index:150;width:56px;height:56px;border-radius:50%;background:var(--a);color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 4px 16px rgba(232,81,10,.4)}
@@ -67,7 +72,7 @@ input,select,textarea{font:inherit;color:inherit}
 .fl{font-size:12px;font-weight:600;color:var(--t2);margin-bottom:5px;display:block;text-transform:uppercase;letter-spacing:.4px}
 .fi,.fsl,.fta{width:100%;padding:12px 14px;background:var(--s);border:1.5px solid var(--sep);border-radius:10px;font-size:16px;color:var(--t1);transition:border-color .15s;-webkit-appearance:none;appearance:none}
 .fi:focus,.fsl:focus,.fta:focus{outline:none;border-color:var(--a)}
-.fta{min-height:78px;resize:none}
+.fta{min-height:80px;resize:none}
 .fr{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
 /* SHEET */
@@ -81,7 +86,11 @@ input,select,textarea{font:inherit;color:inherit}
 .btn:active{opacity:.75;transform:scale(.98)}
 .bp{background:var(--a);color:#fff}
 .bs{background:var(--s2);color:var(--t1)}
-.bd{background:rgba(255,59,48,.12);color:var(--r)}
+
+/* TABS */
+.tbar{display:flex;margin-bottom:14px;background:var(--s2);border-radius:10px;padding:2px}
+.tbtn{flex:1;padding:8px;border-radius:8px;font-size:13px;font-weight:600;color:var(--t2);transition:all .15s}
+.tbtn.active{background:var(--s);color:var(--t1);box-shadow:0 1px 3px rgba(0,0,0,.12)}
 
 /* TOAST */
 #tc{position:fixed;top:calc(env(safe-area-inset-top,44px) + 8px);left:16px;right:16px;z-index:999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
@@ -90,59 +99,30 @@ input,select,textarea{font:inherit;color:inherit}
 .t-ok{background:#1A3A1A;border:1px solid var(--g)}
 .t-err{background:#3A1A1A;border:1px solid var(--r)}
 
-/* EMPTY */
+/* MISC */
 .empty{text-align:center;padding:44px 24px;color:var(--t2)}
 .eicon{font-size:44px;margin-bottom:10px}
 .etitle{font-size:17px;font-weight:600;margin-bottom:5px;color:var(--t1)}
-
-/* LIST */
-.li{background:var(--s);display:flex;align-items:center;padding:13px 16px;gap:12px;border-bottom:1px solid var(--sep)}
-.li:first-child{border-radius:12px 12px 0 0}
-.li:last-child{border-radius:0 0 12px 12px;border-bottom:none}
-.li:only-child{border-radius:12px;border-bottom:none}
-
-/* SECTION HDR */
 .sh{display:flex;align-items:center;justify-content:space-between;padding:0 4px;margin-bottom:8px;margin-top:18px}
 .sh:first-child{margin-top:0}
 .stl{font-size:20px;font-weight:700}
 .sa{font-size:15px;color:var(--a);font-weight:500}
-
-/* TABS */
-.tbar{display:flex;margin-bottom:14px;background:var(--s2);border-radius:10px;padding:2px}
-.tbtn{flex:1;padding:8px;border-radius:8px;font-size:13px;font-weight:600;color:var(--t2);transition:all .15s}
-.tbtn.active{background:var(--s);color:var(--t1);box-shadow:0 1px 3px rgba(0,0,0,.12)}
-
-/* AVATAR */
-.av{width:40px;height:40px;border-radius:50%;background:var(--al);color:var(--a);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0}
-
-/* DOT */
+.spin-wrap{text-align:center;padding:32px}
+.spinner{display:inline-block;width:24px;height:24px;border:2.5px solid var(--sep);border-top-color:var(--a);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.dg{background:var(--g)}.dy{background:var(--y)}.dr{background:var(--r)}.dgr{background:var(--t3)}
-
-/* WEATHER */
-.wgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.wchip{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;border-radius:10px;border:1.5px solid var(--sep);background:var(--s);font-size:11px;font-weight:500;cursor:pointer;color:var(--t2)}
-.wchip span{font-size:22px}
-.wchip.active{border-color:var(--a);background:var(--al);color:var(--a)}
-
-/* FIELD ROW */
+.dr{background:var(--r)}.dy{background:var(--y)}.dg{background:var(--g)}.dgr{background:var(--t3)}
 .frow{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--sep);background:var(--s)}
 .frow:first-child{border-radius:12px 12px 0 0}
 .frow:last-child{border-radius:0 0 12px 12px;border-bottom:none}
 .frow:only-child{border-radius:12px;border-bottom:none}
 .fkey{font-size:15px}
-.fval{font-size:15px;color:var(--t2);max-width:55%;text-align:right}
-
-/* SPINNER */
-.spin-wrap{text-align:center;padding:32px}
-.spinner{display:inline-block;width:24px;height:24px;border:2.5px solid var(--sep);border-top-color:var(--a);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
+.fval{font-size:15px;color:var(--t2);max-width:55%;text-align:right;word-break:break-word}
 </style>
 </head>
 <body>
 <div id="app">
 
-<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-inner">
     <div>
@@ -153,98 +133,87 @@ input,select,textarea{font:inherit;color:inherit}
   </div>
 </div>
 
-<!-- CONTENT -->
 <div id="content">
 
 <!-- DASHBOARD -->
 <div class="scr active" id="scr-dashboard">
   <div class="sgrid">
     <div class="scard"><div class="sval" id="st-proj">—</div><div class="slbl">Active Projects</div></div>
-    <div class="scard"><div class="sval" id="st-crew">—</div><div class="slbl">Crew In Today</div></div>
-    <div class="scard"><div class="sval" id="st-tasks">—</div><div class="slbl">Open Tasks</div></div>
-    <div class="scard"><div class="sval" id="st-safe">—</div><div class="slbl">Safety Today</div></div>
+    <div class="scard"><div class="sval" id="st-logs">—</div><div class="slbl">Logs This Week</div></div>
+    <div class="scard"><div class="sval" id="st-con">—</div><div class="slbl">Open Constraints</div></div>
+    <div class="scard"><div class="sval" id="st-rfi">—</div><div class="slbl">Open RFIs</div></div>
   </div>
-  <div class="sh"><div class="stl">Today's Logs</div><div class="sa" onclick="openSheet('new-log')">+ Log</div></div>
+  <div class="sh"><div class="stl">Recent Logs</div><div class="sa" onclick="openSheet('new-log')">+ Log</div></div>
   <div id="d-logs"><div class="spin-wrap"><div class="spinner"></div></div></div>
-  <div class="sh"><div class="stl">Recent Activity</div></div>
-  <div id="d-activity"><div class="spin-wrap"><div class="spinner"></div></div></div>
+  <div class="sh"><div class="stl">Active Constraints</div><div class="sa" onclick="go('constraints')">View All</div></div>
+  <div id="d-cons"><div class="spin-wrap"><div class="spinner"></div></div></div>
 </div>
 
-<!-- DAILY LOG -->
-<div class="scr" id="scr-log">
-  <button class="btn bp" style="width:100%;margin-bottom:14px;border-radius:12px" onclick="openSheet('new-log')">📋 New Daily Log</button>
-  <div id="log-list"><div class="spin-wrap"><div class="spinner"></div></div></div>
-</div>
-
-<!-- CREW -->
-<div class="scr" id="scr-crew">
+<!-- DAILY LOGS -->
+<div class="scr" id="scr-logs">
   <div class="tbar">
-    <button class="tbtn active" onclick="crewTab('roster',this)">Roster</button>
-    <button class="tbtn" onclick="crewTab('time',this)">Time</button>
+    <button class="tbtn active" onclick="logsTab('all',this)">All</button>
+    <button class="tbtn" onclick="logsTab('Open',this)">Open</button>
+    <button class="tbtn" onclick="logsTab('Resolved',this)">Resolved</button>
   </div>
-  <div id="crew-roster"><div class="spin-wrap"><div class="spinner"></div></div></div>
-  <div id="crew-time" style="display:none"><div class="spin-wrap"><div class="spinner"></div></div></div>
+  <button class="btn bp" style="width:100%;margin-bottom:14px;border-radius:12px" onclick="openSheet('new-log')">📋 New Log Entry</button>
+  <div id="logs-list"><div class="spin-wrap"><div class="spinner"></div></div></div>
 </div>
 
-<!-- TASKS -->
-<div class="scr" id="scr-tasks">
+<!-- CONSTRAINTS -->
+<div class="scr" id="scr-constraints">
   <div class="tbar">
-    <button class="tbtn active" onclick="taskFilter('Open',this)">Open</button>
-    <button class="tbtn" onclick="taskFilter('In Progress',this)">Active</button>
-    <button class="tbtn" onclick="taskFilter('Done',this)">Done</button>
+    <button class="tbtn active" onclick="conFilter('all',this)">All</button>
+    <button class="tbtn" onclick="conFilter('Critical',this)">Critical</button>
+    <button class="tbtn" onclick="conFilter('Active',this)">Active</button>
+    <button class="tbtn" onclick="conFilter('Resolved',this)">Resolved</button>
   </div>
-  <div id="task-list"><div class="spin-wrap"><div class="spinner"></div></div></div>
+  <button class="btn bp" style="width:100%;margin-bottom:14px;border-radius:12px" onclick="openSheet('new-constraint')">⚠️ New Constraint</button>
+  <div id="con-list"><div class="spin-wrap"><div class="spinner"></div></div></div>
+</div>
+
+<!-- DOCS -->
+<div class="scr" id="scr-docs">
+  <div class="tbar">
+    <button class="tbtn active" onclick="docsTab('co',this)">Change Orders</button>
+    <button class="tbtn" onclick="docsTab('rfi',this)">RFIs</button>
+    <button class="tbtn" onclick="docsTab('sub',this)">Submittals</button>
+  </div>
+  <div id="docs-body"><div class="spin-wrap"><div class="spinner"></div></div></div>
 </div>
 
 <!-- MORE -->
 <div class="scr" id="scr-more">
   <div class="stl" style="margin-bottom:14px">More</div>
   <div class="card">
-    <div class="crow" onclick="go('safety')"><div class="cicon" style="background:rgba(255,59,48,.12)">🦺</div><div class="ctxt"><div class="ctitle">Safety Reports</div><div class="csub">Incidents & observations</div></div><span style="color:var(--t3)">›</span></div>
-    <div class="crow" onclick="go('equipment')"><div class="cicon" style="background:rgba(255,159,10,.12)">🔧</div><div class="ctxt"><div class="ctitle">Equipment</div><div class="csub">Checkout & tracking</div></div><span style="color:var(--t3)">›</span></div>
-    <div class="crow" onclick="go('deliveries')"><div class="cicon" style="background:rgba(0,122,255,.12)">📦</div><div class="ctxt"><div class="ctitle">Deliveries</div><div class="csub">Materials & POs</div></div><span style="color:var(--t3)">›</span></div>
-    <div class="crow" onclick="go('inspections')"><div class="cicon" style="background:rgba(52,199,89,.12)">✅</div><div class="ctxt"><div class="ctitle">Inspections</div><div class="csub">Checklists & sign-offs</div></div><span style="color:var(--t3)">›</span></div>
-    <div class="crow" onclick="go('reports')"><div class="cicon" style="background:var(--al)">📊</div><div class="ctxt"><div class="ctitle">Reports</div><div class="csub">Daily & weekly summaries</div></div><span style="color:var(--t3)">›</span></div>
+    <div class="crow" onclick="go('team')"><div class="cicon" style="background:rgba(0,122,255,.1)">👷</div><div class="ctxt"><div class="ctitle">Team Members</div><div class="csub">Contacts & roles</div></div><span style="color:var(--t3)">›</span></div>
+    <div class="crow" onclick="go('comms')"><div class="cicon" style="background:rgba(52,199,89,.1)">💬</div><div class="ctxt"><div class="ctitle">Communications</div><div class="csub">Emails, calls, meetings</div></div><span style="color:var(--t3)">›</span></div>
+    <div class="crow" onclick="go('projects')"><div class="cicon" style="background:var(--al)">🏗️</div><div class="ctxt"><div class="ctitle">Projects</div><div class="csub">All job sites</div></div><span style="color:var(--t3)">›</span></div>
+    <div class="crow" onclick="go('reports')"><div class="cicon" style="background:rgba(124,92,255,.1)">📊</div><div class="ctxt"><div class="ctitle">Reports</div><div class="csub">Weekly summaries</div></div><span style="color:var(--t3)">›</span></div>
   </div>
 </div>
 
-<!-- SAFETY -->
-<div class="scr" id="scr-safety">
-  <div class="sh"><div class="stl" style="cursor:pointer" onclick="back()">‹ Safety</div><div class="sa" onclick="openSheet('new-safety')">+ Report</div></div>
-  <div class="tbar">
-    <button class="tbtn active" onclick="safetyFilter('all',this)">All</button>
-    <button class="tbtn" onclick="safetyFilter('High',this)">High</button>
-    <button class="tbtn" onclick="safetyFilter('Medium',this)">Med</button>
-    <button class="tbtn" onclick="safetyFilter('Low',this)">Low</button>
-  </div>
-  <div id="safety-list"><div class="spin-wrap"><div class="spinner"></div></div></div>
+<!-- TEAM -->
+<div class="scr" id="scr-team">
+  <div class="sh"><div class="stl" style="cursor:pointer" onclick="back()">‹ Team</div><div class="sa" onclick="openSheet('new-member')">+ Add</div></div>
+  <div id="team-list"><div class="spin-wrap"><div class="spinner"></div></div></div>
 </div>
 
-<!-- EQUIPMENT -->
-<div class="scr" id="scr-equipment">
-  <div class="sh"><div class="stl" style="cursor:pointer" onclick="back()">‹ Equipment</div><div class="sa" onclick="openSheet('new-equipment')">+ Add</div></div>
-  <div id="eq-list"><div class="spin-wrap"><div class="spinner"></div></div></div>
+<!-- COMMS -->
+<div class="scr" id="scr-comms">
+  <div class="sh"><div class="stl" style="cursor:pointer" onclick="back()">‹ Communications</div><div class="sa" onclick="openSheet('new-comm')">+ Log</div></div>
+  <div id="comms-list"><div class="spin-wrap"><div class="spinner"></div></div></div>
 </div>
 
-<!-- DELIVERIES -->
-<div class="scr" id="scr-deliveries">
-  <div class="sh"><div class="stl" style="cursor:pointer" onclick="back()">‹ Deliveries</div><div class="sa" onclick="openSheet('new-delivery')">+ Add</div></div>
-  <div id="del-list"><div class="spin-wrap"><div class="spinner"></div></div></div>
-</div>
-
-<!-- INSPECTIONS -->
-<div class="scr" id="scr-inspections">
-  <div class="sh"><div class="stl" style="cursor:pointer" onclick="back()">‹ Inspections</div><div class="sa" onclick="openSheet('new-inspection')">+ New</div></div>
-  <div id="insp-list"><div class="spin-wrap"><div class="spinner"></div></div></div>
+<!-- PROJECTS -->
+<div class="scr" id="scr-projects">
+  <div class="sh"><div class="stl" style="cursor:pointer" onclick="back()">‹ Projects</div></div>
+  <div id="proj-list"><div class="spin-wrap"><div class="spinner"></div></div></div>
 </div>
 
 <!-- REPORTS -->
 <div class="scr" id="scr-reports">
   <div class="sh"><div class="stl" style="cursor:pointer" onclick="back()">‹ Reports</div></div>
-  <div class="tbar">
-    <button class="tbtn active" onclick="reportTab('daily',this)">Daily</button>
-    <button class="tbtn" onclick="reportTab('weekly',this)">Weekly</button>
-  </div>
   <div id="report-body"><div class="spin-wrap"><div class="spinner"></div></div></div>
 </div>
 
@@ -256,34 +225,29 @@ input,select,textarea{font:inherit;color:inherit}
       <label class="fl">Airtable Token</label>
       <input class="fi" id="cfg-token" type="password" placeholder="patXXXXX...">
     </div>
-    <div style="padding:14px 16px;border-bottom:1px solid var(--sep)">
+    <div style="padding:14px 16px">
       <label class="fl">Your Name</label>
       <input class="fi" id="cfg-name" placeholder="e.g. Angel">
     </div>
-    <div style="padding:14px 16px">
-      <label class="fl">Default Project</label>
-      <select class="fsl" id="cfg-proj"></select>
-    </div>
   </div>
   <button class="btn bp" style="width:100%" onclick="saveSettings()">Save Settings</button>
-  <div style="text-align:center;margin-top:20px;color:var(--t3);font-size:12px">FieldOS v1.0 · appZCJsrVAGM05AgJ</div>
+  <div style="text-align:center;margin-top:20px;color:var(--t3);font-size:12px">FieldOS v2.0 · appZCJsrVAGM05AgJ</div>
 </div>
 
 </div><!-- /content -->
 
-<!-- NAV -->
 <nav id="nav">
   <button class="nt active" onclick="go('dashboard')" data-tab="dashboard"><div class="ni">🏠</div><div class="nl">Home</div></button>
-  <button class="nt" onclick="go('log')" data-tab="log"><div class="ni">📋</div><div class="nl">Log</div></button>
-  <button class="nt" onclick="go('crew')" data-tab="crew"><div class="ni">👷</div><div class="nl">Crew</div></button>
-  <button class="nt" onclick="go('tasks')" data-tab="tasks"><div class="ni">✅</div><div class="nl">Tasks</div></button>
+  <button class="nt" onclick="go('logs')" data-tab="logs"><div class="ni">📋</div><div class="nl">Logs</div></button>
+  <button class="nt" onclick="go('constraints')" data-tab="constraints"><div class="ni">⚠️</div><div class="nl">Issues</div></button>
+  <button class="nt" onclick="go('docs')" data-tab="docs"><div class="ni">📄</div><div class="nl">Docs</div></button>
   <button class="nt" onclick="go('more')" data-tab="more"><div class="ni">⋯</div><div class="nl">More</div></button>
 </nav>
 
 <button class="fab" id="fab" onclick="openSheet('quick-add')">+</button>
-</div><!-- /app -->
+</div>
 
-<!-- ===== SHEETS ===== -->
+<!-- SHEETS -->
 
 <!-- QUICK ADD -->
 <div class="soverlay" id="sheet-quick-add">
@@ -291,11 +255,11 @@ input,select,textarea{font:inherit;color:inherit}
   <div class="shandle"></div>
   <div class="stitle">Quick Add</div>
   <div class="card" style="margin-bottom:0">
-    <div class="crow" onclick="closeSheet('quick-add');openSheet('new-log')"><div class="cicon" style="background:rgba(0,122,255,.12)">📋</div><div class="ctxt"><div class="ctitle">Daily Log</div></div><span style="color:var(--t3)">›</span></div>
-    <div class="crow" onclick="closeSheet('quick-add');openSheet('new-task')"><div class="cicon" style="background:rgba(52,199,89,.12)">✅</div><div class="ctxt"><div class="ctitle">Punch List Item</div></div><span style="color:var(--t3)">›</span></div>
-    <div class="crow" onclick="closeSheet('quick-add');openSheet('new-safety')"><div class="cicon" style="background:rgba(255,59,48,.12)">🦺</div><div class="ctxt"><div class="ctitle">Safety Report</div></div><span style="color:var(--t3)">›</span></div>
-    <div class="crow" onclick="closeSheet('quick-add');openSheet('new-delivery')"><div class="cicon" style="background:rgba(255,159,10,.12)">📦</div><div class="ctxt"><div class="ctitle">Delivery</div></div><span style="color:var(--t3)">›</span></div>
-    <div class="crow" onclick="closeSheet('quick-add');go('crew')"><div class="cicon" style="background:var(--al)">👷</div><div class="ctxt"><div class="ctitle">Clock In / Out</div></div><span style="color:var(--t3)">›</span></div>
+    <div class="crow" onclick="closeSheet('quick-add');openSheet('new-log')"><div class="cicon" style="background:rgba(0,122,255,.1)">📋</div><div class="ctxt"><div class="ctitle">Log Entry</div></div><span style="color:var(--t3)">›</span></div>
+    <div class="crow" onclick="closeSheet('quick-add');openSheet('new-constraint')"><div class="cicon" style="background:rgba(255,59,48,.1)">⚠️</div><div class="ctxt"><div class="ctitle">Constraint</div></div><span style="color:var(--t3)">›</span></div>
+    <div class="crow" onclick="closeSheet('quick-add');openSheet('new-rfi')"><div class="cicon" style="background:rgba(255,159,10,.1)">❓</div><div class="ctxt"><div class="ctitle">RFI</div></div><span style="color:var(--t3)">›</span></div>
+    <div class="crow" onclick="closeSheet('quick-add');openSheet('new-co')"><div class="cicon" style="background:rgba(52,199,89,.1)">📝</div><div class="ctxt"><div class="ctitle">Change Order</div></div><span style="color:var(--t3)">›</span></div>
+    <div class="crow" onclick="closeSheet('quick-add');openSheet('new-comm')"><div class="cicon" style="background:rgba(124,92,255,.1)">💬</div><div class="ctxt"><div class="ctitle">Communication Log</div></div><span style="color:var(--t3)">›</span></div>
   </div>
   <button class="btn bs" style="margin-top:12px;width:100%" onclick="closeSheet('quick-add')">Cancel</button>
 </div></div>
@@ -304,249 +268,266 @@ input,select,textarea{font:inherit;color:inherit}
 <div class="soverlay" id="sheet-new-log">
 <div class="sheet">
   <div class="shandle"></div>
-  <div class="stitle">New Daily Log</div>
+  <div class="stitle">New Log Entry</div>
+  <div class="fg"><label class="fl">Title</label><input class="fi" id="l-title" placeholder="e.g. Concrete pour Level 3 West"></div>
   <div class="fg"><label class="fl">Project</label><select class="fsl" id="l-proj"></select></div>
   <div class="fr">
     <div class="fg"><label class="fl">Date</label><input class="fi" id="l-date" type="date"></div>
-    <div class="fg"><label class="fl">Shift</label><select class="fsl" id="l-shift"><option>Day</option><option>Evening</option><option>Night</option></select></div>
-  </div>
-  <div class="fg">
-    <label class="fl">Weather</label>
-    <div class="wgrid">
-      <div class="wchip active" onclick="setWeather('☀️ Clear',this)"><span>☀️</span>Clear</div>
-      <div class="wchip" onclick="setWeather('⛅ Cloudy',this)"><span>⛅</span>Cloudy</div>
-      <div class="wchip" onclick="setWeather('🌧️ Rain',this)"><span>🌧️</span>Rain</div>
-      <div class="wchip" onclick="setWeather('❄️ Cold',this)"><span>❄️</span>Cold</div>
+    <div class="fg"><label class="fl">Category</label>
+      <select class="fsl" id="l-cat">
+        <option>General</option><option>Safety</option><option>Quality</option>
+        <option>Schedule</option><option>Scope</option><option>Weather</option>
+        <option>Material</option><option>Equipment</option>
+      </select>
     </div>
   </div>
-  <div class="fg"><label class="fl">Work Performed</label><textarea class="fta" id="l-work" placeholder="Describe work completed today..."></textarea></div>
-  <div class="fg"><label class="fl">Workers Present</label><input class="fi" id="l-workers" placeholder="Names, comma-separated"></div>
-  <div class="fg"><label class="fl">Manpower Count</label><input class="fi" id="l-count" type="number" placeholder="0"></div>
-  <div class="fg"><label class="fl">Notes / Issues</label><textarea class="fta" id="l-notes" placeholder="Delays, issues, RFIs..."></textarea></div>
+  <div class="fg"><label class="fl">Priority</label>
+    <select class="fsl" id="l-pri"><option>Low</option><option selected>Medium</option><option>High</option><option>Critical</option></select>
+  </div>
+  <div class="fg"><label class="fl">Description</label><textarea class="fta" id="l-desc" placeholder="What happened, work performed, observations..."></textarea></div>
+  <div class="fg"><label class="fl">Location</label><input class="fi" id="l-loc" placeholder="e.g. Level 3 West Wing"></div>
   <div class="sacts">
     <button class="btn bs" onclick="closeSheet('new-log')">Cancel</button>
-    <button class="btn bp" onclick="submitLog()">Submit Log</button>
+    <button class="btn bp" onclick="submitLog()">Submit</button>
   </div>
 </div></div>
 
-<!-- NEW TASK -->
-<div class="soverlay" id="sheet-new-task">
+<!-- NEW CONSTRAINT -->
+<div class="soverlay" id="sheet-new-constraint">
 <div class="sheet">
   <div class="shandle"></div>
-  <div class="stitle">New Task</div>
-  <div class="fg"><label class="fl">Task Name</label><input class="fi" id="tk-name" placeholder="e.g. Install conduit in room 204"></div>
-  <div class="fg"><label class="fl">Project</label><select class="fsl" id="tk-proj"></select></div>
+  <div class="stitle">New Constraint</div>
+  <div class="fg"><label class="fl">Constraint</label><input class="fi" id="c-name" placeholder="Describe the constraint"></div>
+  <div class="fg"><label class="fl">Project</label><select class="fsl" id="c-proj"></select></div>
   <div class="fr">
-    <div class="fg"><label class="fl">Priority</label><select class="fsl" id="tk-pri"><option>High</option><option selected>Medium</option><option>Low</option></select></div>
-    <div class="fg"><label class="fl">Due Date</label><input class="fi" id="tk-due" type="date"></div>
+    <div class="fg"><label class="fl">Type</label>
+      <select class="fsl" id="c-type"><option>Budget</option><option>Schedule</option><option>Scope</option><option>Spec</option><option>Permit</option><option>Labor</option><option>Material</option></select>
+    </div>
+    <div class="fg"><label class="fl">Severity</label>
+      <select class="fsl" id="c-sev"><option>Low</option><option selected>Medium</option><option>High</option><option>Critical</option></select>
+    </div>
   </div>
-  <div class="fg"><label class="fl">Assigned To</label><select class="fsl" id="tk-assign"></select></div>
-  <div class="fg"><label class="fl">Description</label><textarea class="fta" id="tk-desc" placeholder="Details, materials needed..."></textarea></div>
+  <div class="fg"><label class="fl">Owner</label><input class="fi" id="c-owner" placeholder="Who owns resolution"></div>
+  <div class="fg"><label class="fl">Impact Description</label><textarea class="fta" id="c-impact" placeholder="What is being impacted?"></textarea></div>
+  <div class="fg"><label class="fl">Mitigation Plan</label><textarea class="fta" id="c-mitig" placeholder="How will this be resolved?"></textarea></div>
+  <div class="fr">
+    <div class="fg"><label class="fl">Date Identified</label><input class="fi" id="c-identified" type="date"></div>
+    <div class="fg"><label class="fl">Target Resolution</label><input class="fi" id="c-target" type="date"></div>
+  </div>
   <div class="sacts">
-    <button class="btn bs" onclick="closeSheet('new-task')">Cancel</button>
-    <button class="btn bp" onclick="submitTask()">Add Task</button>
+    <button class="btn bs" onclick="closeSheet('new-constraint')">Cancel</button>
+    <button class="btn bp" onclick="submitConstraint()">Submit</button>
   </div>
 </div></div>
 
-<!-- NEW SAFETY -->
-<div class="soverlay" id="sheet-new-safety">
+<!-- NEW RFI -->
+<div class="soverlay" id="sheet-new-rfi">
 <div class="sheet">
   <div class="shandle"></div>
-  <div class="stitle">Safety Report</div>
-  <div class="fg"><label class="fl">Type</label>
-    <select class="fsl" id="sf-type"><option>Incident</option><option>Near Miss</option><option>Hazard Observation</option><option>Toolbox Talk</option><option>Equipment Issue</option><option>First Aid</option></select>
+  <div class="stitle">New RFI</div>
+  <div class="fr">
+    <div class="fg"><label class="fl">RFI Number</label><input class="fi" id="rfi-num" placeholder="RFI-001"></div>
+    <div class="fg"><label class="fl">Project</label><select class="fsl" id="rfi-proj"></select></div>
+  </div>
+  <div class="fg"><label class="fl">Question</label><textarea class="fta" id="rfi-q" placeholder="What needs clarification?"></textarea></div>
+  <div class="fr">
+    <div class="fg"><label class="fl">Priority</label>
+      <select class="fsl" id="rfi-pri"><option>Low</option><option selected>Medium</option><option>High</option><option>Critical</option></select>
+    </div>
+    <div class="fg"><label class="fl">Date Due</label><input class="fi" id="rfi-due" type="date"></div>
   </div>
   <div class="fr">
-    <div class="fg"><label class="fl">Severity</label><select class="fsl" id="sf-sev"><option>Low</option><option selected>Medium</option><option>High</option><option>Critical</option></select></div>
-    <div class="fg"><label class="fl">Project</label><select class="fsl" id="sf-proj"></select></div>
+    <div class="fg"><label class="fl">Submitted By</label><input class="fi" id="rfi-sub" placeholder="Name"></div>
+    <div class="fg"><label class="fl">Assigned To</label><input class="fi" id="rfi-assign" placeholder="Name"></div>
   </div>
-  <div class="fg"><label class="fl">Location / Area</label><input class="fi" id="sf-loc" placeholder="e.g. 3rd Floor East Wing"></div>
-  <div class="fg"><label class="fl">Description</label><textarea class="fta" id="sf-desc" placeholder="What happened or was observed?"></textarea></div>
-  <div class="fg"><label class="fl">Corrective Action</label><textarea class="fta" id="sf-action" placeholder="What was done or needs to be done?"></textarea></div>
-  <div class="fg"><label class="fl">Reported By</label><input class="fi" id="sf-rep" placeholder="Your name"></div>
   <div class="sacts">
-    <button class="btn bs" onclick="closeSheet('new-safety')">Cancel</button>
-    <button class="btn bd" onclick="submitSafety()">Submit Report</button>
+    <button class="btn bs" onclick="closeSheet('new-rfi')">Cancel</button>
+    <button class="btn bp" onclick="submitRFI()">Submit RFI</button>
   </div>
 </div></div>
 
-<!-- NEW WORKER -->
-<div class="soverlay" id="sheet-new-worker">
+<!-- NEW CHANGE ORDER -->
+<div class="soverlay" id="sheet-new-co">
 <div class="sheet">
   <div class="shandle"></div>
-  <div class="stitle">Add Worker</div>
-  <div class="fg"><label class="fl">Full Name</label><input class="fi" id="w-name" placeholder="First Last"></div>
+  <div class="stitle">New Change Order</div>
   <div class="fr">
-    <div class="fg"><label class="fl">Role / Trade</label><input class="fi" id="w-role" placeholder="e.g. Electrician"></div>
-    <div class="fg"><label class="fl">Phone</label><input class="fi" id="w-phone" type="tel" placeholder="555-0100"></div>
+    <div class="fg"><label class="fl">CO Number</label><input class="fi" id="co-num" placeholder="CO-001"></div>
+    <div class="fg"><label class="fl">Project</label><select class="fsl" id="co-proj"></select></div>
   </div>
-  <div class="fg"><label class="fl">Assigned Project</label><select class="fsl" id="w-proj"></select></div>
-  <div class="sacts">
-    <button class="btn bs" onclick="closeSheet('new-worker')">Cancel</button>
-    <button class="btn bp" onclick="submitWorker()">Add Worker</button>
-  </div>
-</div></div>
-
-<!-- NEW EQUIPMENT -->
-<div class="soverlay" id="sheet-new-equipment">
-<div class="sheet">
-  <div class="shandle"></div>
-  <div class="stitle">Add Equipment</div>
-  <div class="fg"><label class="fl">Equipment Name</label><input class="fi" id="eq-name" placeholder="e.g. Scissor Lift #3"></div>
+  <div class="fg"><label class="fl">Description</label><textarea class="fta" id="co-desc" placeholder="Describe the change"></textarea></div>
   <div class="fr">
-    <div class="fg"><label class="fl">Category</label>
-      <select class="fsl" id="eq-cat"><option>Lift Equipment</option><option>Power Tools</option><option>Heavy Machinery</option><option>Safety Equipment</option><option>Vehicles</option><option>Other</option></select>
+    <div class="fg"><label class="fl">Type</label>
+      <select class="fsl" id="co-type"><option>Addition</option><option>Deduction</option><option>Substitution</option><option>Time Extension</option></select>
     </div>
     <div class="fg"><label class="fl">Status</label>
-      <select class="fsl" id="eq-status"><option>Available</option><option>In Use</option><option>Maintenance</option></select>
+      <select class="fsl" id="co-status"><option>Draft</option><option selected>Submitted</option><option>Under Review</option><option>Approved</option></select>
     </div>
   </div>
-  <div class="fg"><label class="fl">Serial / ID</label><input class="fi" id="eq-serial" placeholder="Optional"></div>
-  <div class="fg"><label class="fl">Notes</label><textarea class="fta" id="eq-notes" placeholder="Condition, last service date..."></textarea></div>
+  <div class="fr">
+    <div class="fg"><label class="fl">Amount ($)</label><input class="fi" id="co-amt" type="number" placeholder="0.00"></div>
+    <div class="fg"><label class="fl">Schedule Days</label><input class="fi" id="co-days" type="number" placeholder="0"></div>
+  </div>
+  <div class="fg"><label class="fl">Requested By</label><input class="fi" id="co-by" placeholder="Name or company"></div>
   <div class="sacts">
-    <button class="btn bs" onclick="closeSheet('new-equipment')">Cancel</button>
-    <button class="btn bp" onclick="submitEquipment()">Add Equipment</button>
+    <button class="btn bs" onclick="closeSheet('new-co')">Cancel</button>
+    <button class="btn bp" onclick="submitCO()">Submit CO</button>
   </div>
 </div></div>
 
-<!-- NEW DELIVERY -->
-<div class="soverlay" id="sheet-new-delivery">
+<!-- NEW SUBMITTAL -->
+<div class="soverlay" id="sheet-new-submittal">
 <div class="sheet">
   <div class="shandle"></div>
-  <div class="stitle">Log Delivery</div>
-  <div class="fg"><label class="fl">Material / Item</label><input class="fi" id="dv-item" placeholder="e.g. 200x Steel Studs 3-5/8"></div>
+  <div class="stitle">New Submittal</div>
   <div class="fr">
-    <div class="fg"><label class="fl">Supplier</label><input class="fi" id="dv-sup" placeholder="Company name"></div>
-    <div class="fg"><label class="fl">PO Number</label><input class="fi" id="dv-po" placeholder="PO-XXXXX"></div>
+    <div class="fg"><label class="fl">Submittal #</label><input class="fi" id="sm-num" placeholder="SM-001"></div>
+    <div class="fg"><label class="fl">Project</label><select class="fsl" id="sm-proj"></select></div>
+  </div>
+  <div class="fg"><label class="fl">Description</label><input class="fi" id="sm-desc" placeholder="What is being submitted"></div>
+  <div class="fr">
+    <div class="fg"><label class="fl">Spec Section</label><input class="fi" id="sm-spec" placeholder="e.g. 03 30 00"></div>
+    <div class="fg"><label class="fl">Status</label>
+      <select class="fsl" id="sm-status"><option>Draft</option><option selected>Submitted</option><option>Under Review</option><option>Approved</option></select>
+    </div>
   </div>
   <div class="fr">
-    <div class="fg"><label class="fl">Expected Date</label><input class="fi" id="dv-date" type="date"></div>
-    <div class="fg"><label class="fl">Project</label><select class="fsl" id="dv-proj"></select></div>
+    <div class="fg"><label class="fl">Submitted By</label><input class="fi" id="sm-by" placeholder="Name"></div>
+    <div class="fg"><label class="fl">Date Due</label><input class="fi" id="sm-due" type="date"></div>
   </div>
-  <div class="fg"><label class="fl">Status</label>
-    <select class="fsl" id="dv-status"><option>Pending</option><option>In Transit</option><option>Delivered</option><option>Issue</option></select>
-  </div>
-  <div class="fg"><label class="fl">Notes</label><textarea class="fta" id="dv-notes" placeholder="Quantity, condition, issues..."></textarea></div>
   <div class="sacts">
-    <button class="btn bs" onclick="closeSheet('new-delivery')">Cancel</button>
-    <button class="btn bp" onclick="submitDelivery()">Log Delivery</button>
+    <button class="btn bs" onclick="closeSheet('new-submittal')">Cancel</button>
+    <button class="btn bp" onclick="submitSubmittal()">Submit</button>
   </div>
 </div></div>
 
-<!-- NEW INSPECTION -->
-<div class="soverlay" id="sheet-new-inspection">
+<!-- NEW COMM -->
+<div class="soverlay" id="sheet-new-comm">
 <div class="sheet">
   <div class="shandle"></div>
-  <div class="stitle">New Inspection</div>
-  <div class="fg"><label class="fl">Inspection Type</label>
-    <select class="fsl" id="in-type"><option>Site Safety Walk</option><option>Quality Check</option><option>Equipment Inspection</option><option>Fire Safety</option><option>Electrical</option><option>Structural</option><option>Final Walkthrough</option></select>
+  <div class="stitle">Log Communication</div>
+  <div class="fg"><label class="fl">Subject</label><input class="fi" id="cm-subj" placeholder="Brief subject line"></div>
+  <div class="fg"><label class="fl">Project</label><select class="fsl" id="cm-proj"></select></div>
+  <div class="fr">
+    <div class="fg"><label class="fl">From</label><input class="fi" id="cm-from" placeholder="Name"></div>
+    <div class="fg"><label class="fl">To</label><input class="fi" id="cm-to" placeholder="Name"></div>
   </div>
   <div class="fr">
-    <div class="fg"><label class="fl">Project</label><select class="fsl" id="in-proj"></select></div>
-    <div class="fg"><label class="fl">Inspector</label><input class="fi" id="in-insp" placeholder="Name"></div>
+    <div class="fg"><label class="fl">Channel</label>
+      <select class="fsl" id="cm-ch"><option>Email</option><option>Phone</option><option>In-Person</option><option>Text</option><option>App</option></select>
+    </div>
+    <div class="fg"><label class="fl">Date</label><input class="fi" id="cm-date" type="date"></div>
   </div>
-  <div class="fg"><label class="fl">Result</label>
-    <select class="fsl" id="in-result"><option>Pass</option><option>Pass with Conditions</option><option>Fail</option></select>
-  </div>
-  <div class="fg"><label class="fl">Findings / Notes</label><textarea class="fta" id="in-notes" placeholder="Issues found, recommendations..."></textarea></div>
+  <div class="fg"><label class="fl">Message / Notes</label><textarea class="fta" id="cm-msg" placeholder="What was communicated?"></textarea></div>
   <div class="sacts">
-    <button class="btn bs" onclick="closeSheet('new-inspection')">Cancel</button>
-    <button class="btn bp" onclick="submitInspection()">Submit</button>
+    <button class="btn bs" onclick="closeSheet('new-comm')">Cancel</button>
+    <button class="btn bp" onclick="submitComm()">Log It</button>
+  </div>
+</div></div>
+
+<!-- NEW MEMBER -->
+<div class="soverlay" id="sheet-new-member">
+<div class="sheet">
+  <div class="shandle"></div>
+  <div class="stitle">Add Team Member</div>
+  <div class="fg"><label class="fl">Name</label><input class="fi" id="tm-name" placeholder="Full name"></div>
+  <div class="fr">
+    <div class="fg"><label class="fl">Role</label>
+      <select class="fsl" id="tm-role"><option>Superintendent</option><option>Subcontractor</option><option>General Contractor</option><option>Client/Owner</option><option>PM/Estimator</option><option>Office Admin</option></select>
+    </div>
+    <div class="fg"><label class="fl">Company</label><input class="fi" id="tm-co" placeholder="Company name"></div>
+  </div>
+  <div class="fr">
+    <div class="fg"><label class="fl">Email</label><input class="fi" id="tm-email" type="email" placeholder="email@co.com"></div>
+    <div class="fg"><label class="fl">Phone</label><input class="fi" id="tm-phone" type="tel" placeholder="555-0100"></div>
+  </div>
+  <div class="sacts">
+    <button class="btn bs" onclick="closeSheet('new-member')">Cancel</button>
+    <button class="btn bp" onclick="submitMember()">Add Member</button>
   </div>
 </div></div>
 
 <div id="tc"></div>
 
 <script>
-// ============================================================
-// CONFIGURE — paste your Airtable personal access token here
-// ============================================================
-const AT_TOKEN = 'YOUR_AIRTABLE_TOKEN'; // CONFIGURE: paste token here
-const BASE    = 'appZCJsrVAGM05AgJ';
+// ── CONFIG ──
+const AT_TOKEN = 'YOUR_AIRTABLE_TOKEN'; // injected at build time
+const BASE = 'appZCJsrVAGM05AgJ';
 const T = {
-  projects:    'Projects',
-  workers:     'Workers',
-  logs:        'Daily Logs',
-  time:        'Time Entries',
-  safety:      'Safety Reports',
-  tasks:       'Punch List',
-  equipment:   'Equipment',
-  deliveries:  'Deliveries',
-  inspections: 'Inspections'
+  projects:    'tblTbN6Y1wjsHzBSz',
+  logs:        'tblJvYLpt96EKyRBc',
+  constraints: 'tblbARfnT4DRBSUL5',
+  comms:       'tblaMTiWZvsxjKiR6',
+  cos:         'tbljkAG7aDgM0Imyn',
+  rfis:        'tblUWQS2ReW73GJsy',
+  submittals:  'tblo8GH6y5ZF8QpXn',
+  team:        'tbllE4hlKH7bsvbhZ',
+  audit:       'tblhCHK0eNhIn5yHY'
 };
 
-// ============================================================
-// AIRTABLE API
-// ============================================================
+// ── AIRTABLE ──
 const AT = {
-  token() { return localStorage.getItem('at_token') || AT_TOKEN; },
-  async req(table, opts={}) {
-    let url = `https://api.airtable.com/v0/${BASE}/${encodeURIComponent(table)}`;
-    if (opts.id) url += '/'+opts.id;
-    if (opts.params) url += '?'+new URLSearchParams(opts.params);
-    const r = await fetch(url, {
+  token(){ return localStorage.getItem('at_token') || AT_TOKEN; },
+  async req(tableId, opts={}){
+    let url = `https://api.airtable.com/v0/${BASE}/${tableId}`;
+    if(opts.id) url += '/'+opts.id;
+    if(opts.params) url += '?'+new URLSearchParams(opts.params);
+    const r = await fetch(url,{
       method: opts.method||'GET',
-      headers: { Authorization:'Bearer '+this.token(), 'Content-Type':'application/json' },
+      headers:{ Authorization:'Bearer '+this.token(), 'Content-Type':'application/json' },
       body: opts.body ? JSON.stringify(opts.body) : undefined
     });
-    if (!r.ok) throw new Error(`AT ${r.status}: ${await r.text()}`);
+    if(!r.ok) throw new Error(`AT ${r.status}`);
     return r.json();
   },
-  async list(table, params={}) {
+  async list(tableId, params={}){
     const rows=[]; let offset;
     do {
-      const p={...params}; if (offset) p.offset=offset;
-      const d = await this.req(table,{params:p});
+      const p={...params}; if(offset) p.offset=offset;
+      const d=await this.req(tableId,{params:p});
       rows.push(...d.records); offset=d.offset;
     } while(offset);
     return rows;
   },
-  async create(table, fields) { return this.req(table,{method:'POST',body:{fields}}); },
-  async update(table, id, fields) { return this.req(table,{id,method:'PATCH',body:{fields}}); },
+  async create(tableId, fields){ return this.req(tableId,{method:'POST',body:{fields}}); },
+  async update(tableId, id, fields){ return this.req(tableId,{id,method:'PATCH',body:{fields}}); },
   _c:{},
-  async cached(k,fn,ttl=60000) {
+  async cached(k,fn,ttl=60000){
     const now=Date.now();
-    if (this._c[k]&&now-this._c[k].t<ttl) return this._c[k].v;
+    if(this._c[k]&&now-this._c[k].t<ttl) return this._c[k].v;
     const v=await fn(); this._c[k]={v,t:now}; return v;
   },
   bust(k){ delete this._c[k]; }
 };
 
-// ============================================================
-// HELPERS
-// ============================================================
+// ── HELPERS ──
 function today(){ return new Date().toISOString().split('T')[0]; }
 function fmtDate(d){ if(!d) return '—'; return new Date(d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
-function initials(n=''){ return n.trim().split(' ').map(x=>x[0]).join('').toUpperCase().slice(0,2)||'?'; }
 function spin(){ return '<div class="spin-wrap"><div class="spinner"></div></div>'; }
 function empty(icon,title,sub=''){ return `<div class="empty"><div class="eicon">${icon}</div><div class="etitle">${title}</div>${sub?`<div style="font-size:14px">${sub}</div>`:''}</div>`; }
 function badge(s){
-  const m={Open:'bo','In Progress':'bb',Done:'bg',Active:'bg',Pending:'by',Available:'bg','In Use':'bb',Maintenance:'br',Delivered:'bg','In Transit':'bb',Issue:'br',Pass:'bg',Fail:'br','Pass with Conditions':'by',High:'br',Medium:'by',Low:'bg',Critical:'br'};
+  const m={
+    Active:'bo', Open:'bo', Draft:'bgr', Submitted:'bb', 'Under Review':'by',
+    Approved:'bg', Executed:'bg', Resolved:'bg', Mitigated:'bg', Closed:'bg', Answered:'bg',
+    Denied:'br', Rejected:'br', 'Revise & Resubmit':'br',
+    Critical:'br', High:'by', Medium:'bo', Low:'bg',
+    'On Hold':'by', 'Punch List':'bo', Closeout:'bb', Completed:'bg',
+    'Pre-Construction':'bgr', Accepted:'bg', 'Approved as Noted':'by'
+  };
   return `<span class="badge ${m[s]||'bb'}">${s}</span>`;
 }
-function pdot(p){ const m={High:'dr',Medium:'dy',Low:'dg'}; return `<div class="dot ${m[p]||'dgr'}"></div>`; }
+function pdot(p){ const m={Critical:'dr',High:'dr',Medium:'dy',Low:'dg'}; return `<div class="dot ${m[p]||'dgr'}"></div>`; }
+function userName(){ return localStorage.getItem('user_name')||''; }
 
-async function fillSelect(id, table, labelField='Name', allowEmpty=false) {
-  const sel = document.getElementById(id); if (!sel) return;
-  try {
-    const rows = await AT.cached(table+'_sel', ()=>AT.list(T[table]||table,{fields:[labelField],sort:[{field:labelField,direction:'asc'}]}));
-    sel.innerHTML = (allowEmpty?'<option value="">— none —</option>':'')+rows.map(r=>`<option value="${r.id}">${r.fields[labelField]||'—'}</option>`).join('');
-  } catch(e){ sel.innerHTML='<option>Error loading</option>'; }
-}
-async function fillProjects(...ids){ for (const id of ids) await fillSelect(id,'projects','Name'); }
-async function fillWorkers(...ids){
-  for (const id of ids) {
-    const sel=document.getElementById(id); if(!sel) continue;
-    try {
-      const rows=await AT.cached('workers',()=>AT.list(T.workers,{fields:['Name']}));
-      sel.innerHTML='<option value="">Unassigned</option>'+rows.map(r=>`<option value="${r.id}">${r.fields.Name||'—'}</option>`).join('');
-    } catch(e){ sel.innerHTML='<option value="">—</option>'; }
-  }
+async function fillProjSelect(...ids){
+  const projs = await AT.cached('projects', ()=>AT.list(T.projects,{fields:['Project Name'],sort:[{field:'Project Name',direction:'asc'}]}));
+  ids.forEach(id=>{
+    const sel=document.getElementById(id); if(!sel) return;
+    sel.innerHTML = projs.map(p=>`<option value="${p.id}">${p.fields['Project Name']||'—'}</option>`).join('');
+  });
 }
 
-// ============================================================
-// TOAST
-// ============================================================
+// ── TOAST ──
 function toast(msg,type=''){
   const el=document.createElement('div');
   el.className='toast '+(type==='ok'?'t-ok':type==='err'?'t-err':'');
@@ -555,9 +536,7 @@ function toast(msg,type=''){
   setTimeout(()=>el.remove(),3000);
 }
 
-// ============================================================
-// SHEETS
-// ============================================================
+// ── SHEETS ──
 function openSheet(name){
   const el=document.getElementById('sheet-'+name);
   if(el){el.style.display='flex';requestAnimationFrame(()=>el.classList.add('open'));}
@@ -570,36 +549,26 @@ document.querySelectorAll('.soverlay').forEach(el=>{
   el.addEventListener('click',e=>{ if(e.target===el) closeSheet(el.id.replace('sheet-','')); });
 });
 
-// ============================================================
-// ROUTER
-// ============================================================
-const NAV_TABS = ['dashboard','log','crew','tasks','more'];
+// ── ROUTER ──
+const NAV=['dashboard','logs','constraints','docs','more'];
 let cur='dashboard', hist=[];
-
-function go(screen){
-  if(cur===screen) return;
-  hist.push(cur);
-  show(screen);
-}
+function go(screen){ if(cur===screen) return; hist.push(cur); show(screen); }
 function back(){ show(hist.pop()||'more'); }
-
 function show(screen){
   document.querySelectorAll('.scr').forEach(s=>s.classList.remove('active'));
   const el=document.getElementById('scr-'+screen);
   if(el){el.classList.add('active'); cur=screen;}
   document.querySelectorAll('.nt').forEach(t=>{
-    const tab=t.dataset.tab;
-    t.classList.toggle('active', tab===screen || (!NAV_TABS.includes(screen) && tab==='more'));
+    t.classList.toggle('active', t.dataset.tab===screen||(!NAV.includes(screen)&&t.dataset.tab==='more'));
   });
-  const fabHide=['settings','reports'];
-  document.getElementById('fab').style.display=fabHide.includes(screen)?'none':'flex';
+  const noFab=['settings','reports'];
+  document.getElementById('fab').style.display=noFab.includes(screen)?'none':'flex';
   const titles={
-    dashboard:['FieldOS','Construction Field OS'],log:['Daily Log','Site Activity'],
-    crew:['Crew','Workers & Time'],tasks:['Punch List','Task Tracker'],
-    more:['More','FieldOS'],safety:['Safety','Reports & Observations'],
-    equipment:['Equipment','Tools & Machinery'],deliveries:['Deliveries','Materials & POs'],
-    inspections:['Inspections','Checklists'],reports:['Reports','Summaries'],
-    settings:['Settings','Configuration']
+    dashboard:['FieldOS','Field Operations'],logs:['Daily Logs','Site Activity'],
+    constraints:['Constraints','Issues & Blockers'],docs:['Documents','COs · RFIs · Submittals'],
+    more:['More','FieldOS'],team:['Team','Members & Contacts'],
+    comms:['Communications','Logs'],projects:['Projects','All Sites'],
+    reports:['Reports','Summaries'],settings:['Settings','Configuration']
   };
   const [main,sub]=titles[screen]||[screen,''];
   document.getElementById('htitle').textContent=main;
@@ -607,641 +576,483 @@ function show(screen){
   document.getElementById('content').scrollTo(0,0);
   loadScreen(screen);
 }
-
 function loadScreen(s){
   switch(s){
-    case 'dashboard': loadDashboard(); break;
-    case 'log': loadLogs(); break;
-    case 'crew': loadRoster(); break;
-    case 'tasks': loadTasks(); break;
-    case 'safety': loadSafety(); break;
-    case 'equipment': loadEquipment(); break;
-    case 'deliveries': loadDeliveries(); break;
-    case 'inspections': loadInspections(); break;
-    case 'reports': loadReport('daily'); break;
-    case 'settings': loadSettings(); break;
+    case 'dashboard':   loadDashboard(); break;
+    case 'logs':        loadLogs(); break;
+    case 'constraints': loadConstraints(); break;
+    case 'docs':        loadDocs('co'); break;
+    case 'team':        loadTeam(); break;
+    case 'comms':       loadComms(); break;
+    case 'projects':    loadProjects(); break;
+    case 'reports':     loadReports(); break;
+    case 'settings':    loadSettings(); break;
   }
 }
 
-// ============================================================
-// DASHBOARD
-// ============================================================
+// ── DASHBOARD ──
 async function loadDashboard(){
   try {
-    const [projects,workers,tasks,safety,logs]=await Promise.all([
-      AT.cached('projects',()=>AT.list(T.projects,{fields:['Name','Status']})),
-      AT.cached('workers',()=>AT.list(T.workers,{fields:['Name','Checked In','Status']})),
-      AT.cached('tasks_open',()=>AT.list(T.tasks,{filterByFormula:"Status!='Done'",fields:['Name','Status','Priority']})),
-      AT.cached('safety_all',()=>AT.list(T.safety,{fields:['Type','Severity','Date'],sort:[{field:'Date',direction:'desc'}],maxRecords:50})),
-      AT.cached('logs_today',()=>AT.list(T.logs,{filterByFormula:`IS_SAME({Date},'${today()}','day')`,fields:['Project','Work Performed','Shift','Weather','Notes'],maxRecords:10}))
+    const [projs, logs, cons, rfis] = await Promise.all([
+      AT.cached('projs',()=>AT.list(T.projects,{fields:['Project Name','Status']})),
+      AT.cached('logs_wk',()=>AT.list(T.logs,{fields:['Title','Date','Priority','Status','Project Name'],sort:[{field:'Date',direction:'desc'}],maxRecords:20})),
+      AT.cached('cons_open',()=>AT.list(T.constraints,{filterByFormula:"OR({Status}='Active',{Status}='')"})),
+      AT.cached('rfis_open',()=>AT.list(T.rfis,{filterByFormula:"OR({Status}='Open',{Status}='Submitted')"}))
     ]);
-    const activeProj=projects.filter(p=>!p.fields.Status||p.fields.Status==='Active').length;
-    const crewIn=workers.filter(w=>w.fields['Checked In']===true||w.fields.Status==='Checked In').length;
-    const todaySafe=safety.filter(s=>s.fields.Date===today()).length;
-    document.getElementById('st-proj').textContent=activeProj;
-    document.getElementById('st-crew').textContent=crewIn;
-    document.getElementById('st-tasks').textContent=tasks.length;
-    document.getElementById('st-safe').textContent=todaySafe;
+    const active=projs.filter(p=>p.fields.Status==='Active'||!p.fields.Status).length;
+    document.getElementById('st-proj').textContent=active;
+    document.getElementById('st-logs').textContent=logs.length;
+    document.getElementById('st-con').textContent=cons.length;
+    document.getElementById('st-rfi').textContent=rfis.length;
 
-    // Today logs
     const dl=document.getElementById('d-logs');
-    if(!logs.length){
-      dl.innerHTML=`<div class="card" style="padding:16px;text-align:center;color:var(--t2)">No logs today. <span style="color:var(--a);cursor:pointer" onclick="openSheet('new-log')">Add one →</span></div>`;
+    if(!logs.length){dl.innerHTML=`<div class="card" style="padding:16px;text-align:center;color:var(--t2)">No logs yet. <span style="color:var(--a);cursor:pointer" onclick="openSheet('new-log')">Add one →</span></div>`;
     } else {
-      dl.innerHTML=logs.map(l=>`
+      dl.innerHTML=logs.slice(0,5).map(l=>`
         <div class="li">
-          <div class="cicon" style="background:rgba(0,122,255,.12);flex-shrink:0">📋</div>
+          <div style="margin-top:2px">${pdot(l.fields.Priority)}</div>
           <div style="flex:1;min-width:0">
-            <div style="font-size:15px;font-weight:500">${l.fields['Work Performed']?.slice(0,60)||'Log'}${(l.fields['Work Performed']?.length||0)>60?'…':''}</div>
-            <div style="font-size:12px;color:var(--t3);margin-top:3px">${l.fields.Weather||''} · ${l.fields.Shift||'Day'}</div>
+            <div style="font-size:15px;font-weight:500;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${l.fields.Title||'Log Entry'}</div>
+            <div style="font-size:12px;color:var(--t3);margin-top:3px">${fmtDate(l.fields.Date)} · ${l.fields.Category||'General'}</div>
           </div>
+          ${badge(l.fields.Status||'Open')}
         </div>`).join('');
     }
 
-    // Recent activity
-    const act=[...tasks.slice(0,3),...safety.slice(0,2)].sort((a,b)=>new Date(b.createdTime)-new Date(a.createdTime)).slice(0,5);
-    const da=document.getElementById('d-activity');
-    if(!act.length){ da.innerHTML=empty('📭','No recent activity','Add a log or task to get started'); return; }
-    da.innerHTML=act.map(r=>`
-      <div class="li">
-        <div style="font-size:24px">${r.fields.Severity?'🦺':'✅'}</div>
-        <div style="flex:1">
-          <div style="font-size:15px;font-weight:500">${r.fields.Name||r.fields.Type||'Record'}</div>
-          <div style="font-size:12px;color:var(--t3)">${fmtDate(r.createdTime)}</div>
-        </div>
-        ${badge(r.fields.Status||r.fields.Severity||'Open')}
-      </div>`).join('');
-  } catch(e){ toast('Dashboard error: '+e.message,'err'); }
+    const dc=document.getElementById('d-cons');
+    if(!cons.length){ dc.innerHTML=`<div class="card" style="padding:16px;text-align:center;color:var(--t2)">No active constraints ✓</div>`;
+    } else {
+      dc.innerHTML=cons.slice(0,4).map(c=>`
+        <div class="li">
+          <div style="margin-top:2px">${pdot(c.fields.Severity)}</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:15px;font-weight:500;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${c.fields.Constraint||'Constraint'}</div>
+            <div style="font-size:12px;color:var(--t3);margin-top:3px">${c.fields.Type||''} · ${c.fields.Owner||''}</div>
+          </div>
+          ${badge(c.fields.Severity||'Medium')}
+        </div>`).join('');
+    }
+  } catch(e){ toast('Load failed: '+e.message,'err'); }
 }
 
-// ============================================================
-// DAILY LOG
-// ============================================================
-let _weather='☀️ Clear';
-function setWeather(w,el){ _weather=w; document.querySelectorAll('.wchip').forEach(c=>c.classList.remove('active')); el.classList.add('active'); }
-
+// ── LOGS ──
+let _logsFilter='all';
+function logsTab(f,btn){
+  _logsFilter=f;
+  document.querySelectorAll('#scr-logs .tbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  loadLogs();
+}
 async function loadLogs(){
-  const el=document.getElementById('log-list');
+  const el=document.getElementById('logs-list');
   el.innerHTML=spin();
   try {
-    const logs=await AT.list(T.logs,{sort:[{field:'Date',direction:'desc'}],maxRecords:40});
-    if(!logs.length){ el.innerHTML=empty('📋','No logs yet','Tap "New Daily Log" to start'); return; }
-    el.innerHTML=logs.map(l=>{
-      const d=new Date(l.fields.Date||l.createdTime);
-      return `<div class="li">
-        <div style="display:flex;flex-direction:column;align-items:center;min-width:40px;gap:1px">
-          <div style="font-size:10px;color:var(--t3);text-transform:uppercase">${d.toLocaleDateString('en-US',{month:'short'})}</div>
-          <div style="font-size:22px;font-weight:700">${d.getDate()}</div>
-        </div>
+    const formula=_logsFilter==='all'?'':(`{Status}='${_logsFilter}'`);
+    const logs=await AT.list(T.logs,{filterByFormula:formula,sort:[{field:'Date',direction:'desc'}],maxRecords:50});
+    if(!logs.length){el.innerHTML=empty('📋','No logs','Tap "New Log Entry" to start');return;}
+    el.innerHTML=logs.map(l=>`
+      <div class="li" style="align-items:flex-start;gap:10px">
+        <div style="margin-top:4px">${pdot(l.fields.Priority)}</div>
         <div style="flex:1;min-width:0">
-          <div style="font-size:15px;font-weight:500;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${l.fields['Work Performed']?.slice(0,65)||'—'}</div>
-          <div style="font-size:12px;color:var(--t3);margin-top:3px">${l.fields.Weather||''} · ${l.fields.Shift||'Day'} ${l.fields['Manpower Count']?'· '+l.fields['Manpower Count']+' workers':''}</div>
+          <div style="font-size:15px;font-weight:500">${l.fields.Title||'Log Entry'}</div>
+          <div style="font-size:13px;color:var(--t2);margin-top:2px">${l.fields.Category||'General'}${l.fields.Location?' · '+l.fields.Location:''}</div>
+          <div style="font-size:12px;color:var(--t3);margin-top:3px">${fmtDate(l.fields.Date)}${l.fields['Submitted By']?' · '+l.fields['Submitted By']:''}</div>
+          ${l.fields.Description?`<div style="font-size:13px;color:var(--t2);margin-top:6px;line-height:1.5">${l.fields.Description.slice(0,100)}${l.fields.Description.length>100?'…':''}</div>`:''}
         </div>
-      </div>`;
-    }).join('');
+        ${badge(l.fields.Status||'Open')}
+      </div>`).join('');
   } catch(e){ el.innerHTML=empty('❌','Error',e.message); }
 }
-
 async function submitLog(){
   const fields={
-    'Date':document.getElementById('l-date').value,
-    'Shift':document.getElementById('l-shift').value,
-    'Weather':_weather,
-    'Work Performed':document.getElementById('l-work').value,
-    'Workers Present':document.getElementById('l-workers').value,
-    'Notes':document.getElementById('l-notes').value
+    'Title': document.getElementById('l-title').value,
+    'Date': document.getElementById('l-date').value,
+    'Category': document.getElementById('l-cat').value,
+    'Priority': document.getElementById('l-pri').value,
+    'Description': document.getElementById('l-desc').value,
+    'Location': document.getElementById('l-loc').value,
+    'Submitted By': userName(),
+    'Status': 'Open'
   };
-  const cnt=document.getElementById('l-count').value;
-  if(cnt) fields['Manpower Count']=parseInt(cnt);
-  const pid=document.getElementById('l-proj').value;
-  if(pid) fields['Project']=[pid];
-  if(!fields['Work Performed']){toast('Describe work performed','err');return;}
+  const pid=document.getElementById('l-proj').value; if(pid) fields['Project']=[pid];
+  if(!fields.Title){toast('Title required','err');return;}
   try {
     await AT.create(T.logs,fields);
-    AT.bust('logs_today');
+    AT.bust('logs_wk');
     closeSheet('new-log');
-    toast('Daily log submitted!','ok');
-    ['l-work','l-workers','l-count','l-notes'].forEach(id=>document.getElementById(id).value='');
-    if(cur==='log') loadLogs(); else loadDashboard();
+    toast('Log submitted!','ok');
+    ['l-title','l-desc','l-loc'].forEach(id=>document.getElementById(id).value='');
+    if(cur==='logs') loadLogs(); else loadDashboard();
   } catch(e){ toast('Failed: '+e.message,'err'); }
 }
 
-// ============================================================
-// CREW
-// ============================================================
-function crewTab(view,btn){
-  document.querySelectorAll('#scr-crew .tbtn').forEach(b=>b.classList.remove('active'));
+// ── CONSTRAINTS ──
+let _conAll=[], _conFilter='all';
+function conFilter(f,btn){
+  _conFilter=f;
+  document.querySelectorAll('#scr-constraints .tbtn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('crew-roster').style.display=view==='roster'?'block':'none';
-  document.getElementById('crew-time').style.display=view==='time'?'block':'none';
-  if(view==='time') loadTime();
+  renderConstraints();
 }
-
-async function loadRoster(){
-  const el=document.getElementById('crew-roster');
-  el.innerHTML=spin();
+async function loadConstraints(){
+  document.getElementById('con-list').innerHTML=spin();
   try {
-    const workers=await AT.list(T.workers,{sort:[{field:'Name',direction:'asc'}]});
-    AT._c['workers']={v:workers,t:Date.now()};
-    if(!workers.length){
-      el.innerHTML=empty('👷','No workers yet','Add your crew')+`<button class="btn bp" style="width:100%;margin-top:12px" onclick="openSheet('new-worker')">+ Add Worker</button>`;
-      return;
-    }
-    el.innerHTML=`<button class="btn bp" style="width:100%;margin-bottom:12px" onclick="openSheet('new-worker')">+ Add Worker</button>`
-      +workers.map(w=>{
-        const inStatus=w.fields['Checked In']===true||w.fields.Status==='Checked In';
-        return `<div class="li">
-          <div class="av">${initials(w.fields.Name)}</div>
-          <div style="flex:1">
-            <div style="font-size:15px;font-weight:500">${w.fields.Name||'—'}</div>
-            <div style="font-size:13px;color:var(--t2)">${w.fields.Role||w.fields.Trade||'Worker'}${w.fields.Phone?' · '+w.fields.Phone:''}</div>
-          </div>
-          <button onclick="toggleCheckIn('${w.id}','${(w.fields.Name||'').replace(/'/g,"\\'")}',${inStatus})"
-            style="padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;background:${inStatus?'rgba(52,199,89,.15)':'var(--s2)'};color:${inStatus?'var(--g)':'var(--t2)'}">
-            ${inStatus?'In ✓':'Out'}
-          </button>
-        </div>`;
-      }).join('');
-  } catch(e){ el.innerHTML=empty('❌','Error',e.message); }
+    _conAll=await AT.list(T.constraints,{sort:[{field:'Severity',direction:'asc'},{field:'Date Identified',direction:'desc'}]});
+    AT._c['cons_open']={v:_conAll.filter(c=>c.fields.Status==='Active'||!c.fields.Status),t:Date.now()};
+    renderConstraints();
+  } catch(e){ document.getElementById('con-list').innerHTML=empty('❌','Error',e.message); }
 }
-
-async function toggleCheckIn(id,name,isIn){
-  try {
-    const newIn=!isIn;
-    await AT.update(T.workers,id,{'Checked In':newIn});
-    AT.bust('workers');
-    if(newIn){
-      await AT.create(T.time,{'Worker':[id],'Clock In':new Date().toISOString(),'Date':today(),'Status':'Active'});
-    } else {
-      const entries=await AT.list(T.time,{filterByFormula:`AND({Worker Name}='${name}',{Status}='Active')`,maxRecords:1});
-      if(entries.length) await AT.update(T.time,entries[0].id,{'Clock Out':new Date().toISOString(),'Status':'Complete'});
-    }
-    toast(`${name} clocked ${newIn?'in':'out'}`,newIn?'ok':'');
-    loadRoster();
-  } catch(e){ toast('Check-in failed: '+e.message,'err'); }
-}
-
-async function loadTime(){
-  const el=document.getElementById('crew-time');
-  el.innerHTML=spin();
-  try {
-    const entries=await AT.list(T.time,{sort:[{field:'Date',direction:'desc'}],maxRecords:60});
-    if(!entries.length){el.innerHTML=empty('⏱️','No time entries','Clock in workers from Roster');return;}
-    el.innerHTML=entries.map(e=>{
-      const cin=e.fields['Clock In']?new Date(e.fields['Clock In']):null;
-      const cout=e.fields['Clock Out']?new Date(e.fields['Clock Out']):null;
-      const hrs=cin&&cout?((cout-cin)/3600000).toFixed(1)+'h':cin?'Active':'—';
-      const name=e.fields['Worker Name']?.[0]||e.fields.Worker?.[0]||'Worker';
-      return `<div class="li">
-        <div class="av">${initials(name)}</div>
-        <div style="flex:1">
-          <div style="font-size:15px;font-weight:500">${name}</div>
-          <div style="font-size:13px;color:var(--t2)">${fmtDate(e.fields.Date)}</div>
-        </div>
-        <div style="text-align:right">
-          <div style="font-size:15px;font-weight:600">${hrs}</div>
-          <div style="font-size:11px;color:var(--t3)">${e.fields.Status||''}</div>
-        </div>
-      </div>`;
-    }).join('');
-  } catch(e){ el.innerHTML=empty('❌','Error',e.message); }
-}
-
-async function submitWorker(){
-  const fields={'Name':document.getElementById('w-name').value,'Role':document.getElementById('w-role').value,'Phone':document.getElementById('w-phone').value};
-  const pid=document.getElementById('w-proj').value;
-  if(pid) fields['Project']=[pid];
-  if(!fields.Name){toast('Name required','err');return;}
-  try {
-    await AT.create(T.workers,fields);
-    AT.bust('workers');
-    closeSheet('new-worker');
-    toast('Worker added!','ok');
-    loadRoster();
-    ['w-name','w-role','w-phone'].forEach(id=>document.getElementById(id).value='');
-  } catch(e){ toast('Failed: '+e.message,'err'); }
-}
-
-// ============================================================
-// TASKS
-// ============================================================
-let _taskFilter='Open';
-function taskFilter(status,btn){
-  _taskFilter=status;
-  document.querySelectorAll('#scr-tasks .tbtn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  loadTasks();
-}
-
-async function loadTasks(){
-  const el=document.getElementById('task-list');
-  el.innerHTML=spin();
-  try {
-    const formula=_taskFilter==='all'?'':(`{Status}='${_taskFilter}'`);
-    const tasks=await AT.list(T.tasks,{filterByFormula:formula,sort:[{field:'Priority',direction:'asc'},{field:'Due Date',direction:'asc'}],maxRecords:100});
-    AT.bust('tasks_open');
-    if(!tasks.length){
-      el.innerHTML=empty('✅',`No ${_taskFilter.toLowerCase()} tasks`,'Tap + to add')+`<button class="btn bp" style="width:100%;margin-top:12px" onclick="openSheet('new-task')">+ Add Task</button>`;
-      return;
-    }
-    el.innerHTML=`<button class="btn bp" style="width:100%;margin-bottom:12px" onclick="openSheet('new-task')">+ Add Task</button>`
-      +tasks.map(t=>`
-        <div class="li" style="align-items:flex-start;gap:10px">
-          <div style="margin-top:4px">${pdot(t.fields.Priority)}</div>
-          <div style="flex:1;min-width:0">
-            <div style="font-size:15px;font-weight:500">${t.fields.Name||'Task'}</div>
-            <div style="font-size:13px;color:var(--t2);margin-top:2px">
-              ${[t.fields['Project Name']?.[0],t.fields['Assigned To Name']?.[0]].filter(Boolean).join(' · ')||'—'}
-            </div>
-            ${t.fields['Due Date']?`<div style="font-size:12px;color:var(--t3);margin-top:3px">Due ${fmtDate(t.fields['Due Date'])}</div>`:''}
-          </div>
-          <select onchange="updateTaskStatus('${t.id}',this.value)"
-            style="font-size:12px;font-weight:600;padding:5px 8px;border-radius:8px;border:1px solid var(--sep);background:var(--s2);color:var(--t2);-webkit-appearance:none">
-            <option ${t.fields.Status==='Open'?'selected':''}>Open</option>
-            <option ${t.fields.Status==='In Progress'?'selected':''}>In Progress</option>
-            <option ${t.fields.Status==='Done'?'selected':''}>Done</option>
-          </select>
-        </div>`).join('');
-  } catch(e){ el.innerHTML=empty('❌','Error',e.message); }
-}
-
-async function updateTaskStatus(id,status){
-  try {
-    await AT.update(T.tasks,id,{Status:status});
-    AT.bust('tasks_open');
-    toast('→ '+status,'ok');
-    setTimeout(loadTasks,400);
-  } catch(e){ toast('Failed: '+e.message,'err'); }
-}
-
-async function submitTask(){
-  const fields={
-    'Name':document.getElementById('tk-name').value,
-    'Priority':document.getElementById('tk-pri').value,
-    'Status':'Open',
-    'Description':document.getElementById('tk-desc').value
-  };
-  const due=document.getElementById('tk-due').value; if(due) fields['Due Date']=due;
-  const pid=document.getElementById('tk-proj').value; if(pid) fields['Project']=[pid];
-  const wid=document.getElementById('tk-assign').value; if(wid) fields['Assigned To']=[wid];
-  if(!fields.Name){toast('Task name required','err');return;}
-  try {
-    await AT.create(T.tasks,fields);
-    AT.bust('tasks_open');
-    closeSheet('new-task');
-    toast('Task added!','ok');
-    ['tk-name','tk-due','tk-desc'].forEach(id=>document.getElementById(id).value='');
-    loadTasks();
-  } catch(e){ toast('Failed: '+e.message,'err'); }
-}
-
-// ============================================================
-// SAFETY
-// ============================================================
-let _safetyAll=[], _safetyFilter='all';
-function safetyFilter(f,btn){
-  _safetyFilter=f;
-  document.querySelectorAll('#scr-safety .tbtn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderSafety();
-}
-
-async function loadSafety(){
-  document.getElementById('safety-list').innerHTML=spin();
-  try {
-    _safetyAll=await AT.list(T.safety,{sort:[{field:'Date',direction:'desc'}],maxRecords:100});
-    AT._c['safety_all']={v:_safetyAll,t:Date.now()};
-    renderSafety();
-  } catch(e){ document.getElementById('safety-list').innerHTML=empty('❌','Error',e.message); }
-}
-
-function renderSafety(){
-  const el=document.getElementById('safety-list');
-  const data=_safetyFilter==='all'?_safetyAll:_safetyAll.filter(r=>r.fields.Severity===_safetyFilter);
-  if(!data.length){el.innerHTML=empty('🦺','No safety reports','Tap + Report to file one');return;}
-  const si={High:'🔴',Medium:'🟡',Low:'🟢',Critical:'🚨'};
-  el.innerHTML=data.map(r=>`
-    <div class="li">
-      <div style="font-size:26px">${si[r.fields.Severity]||'🦺'}</div>
+function renderConstraints(){
+  const el=document.getElementById('con-list');
+  let data=_conAll;
+  if(_conFilter==='Critical') data=_conAll.filter(c=>c.fields.Severity==='Critical');
+  else if(_conFilter==='Active') data=_conAll.filter(c=>c.fields.Status==='Active');
+  else if(_conFilter==='Resolved') data=_conAll.filter(c=>c.fields.Status==='Resolved');
+  if(!data.length){el.innerHTML=empty('✅','No constraints','Clear skies');return;}
+  el.innerHTML=data.map(c=>`
+    <div class="li" style="align-items:flex-start;gap:10px">
+      <div style="margin-top:4px">${pdot(c.fields.Severity)}</div>
       <div style="flex:1;min-width:0">
-        <div style="font-size:15px;font-weight:500">${r.fields.Type||'Report'}</div>
-        <div style="font-size:13px;color:var(--t2);overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${r.fields.Description?.slice(0,65)||r.fields.Location||'—'}</div>
-        <div style="font-size:12px;color:var(--t3);margin-top:3px">${fmtDate(r.fields.Date||r.createdTime)}${r.fields['Reported By']?' · '+r.fields['Reported By']:''}</div>
+        <div style="font-size:15px;font-weight:500">${c.fields.Constraint||'Constraint'}</div>
+        <div style="font-size:13px;color:var(--t2);margin-top:2px">${c.fields.Type||''}${c.fields.Owner?' · '+c.fields.Owner:''}</div>
+        ${c.fields['Target Resolution']?`<div style="font-size:12px;color:var(--t3);margin-top:3px">Target: ${fmtDate(c.fields['Target Resolution'])}</div>`:''}
+        ${c.fields['Impact Description']?`<div style="font-size:13px;color:var(--t2);margin-top:6px;line-height:1.5">${c.fields['Impact Description'].slice(0,80)}…</div>`:''}
       </div>
-      ${badge(r.fields.Severity||'Medium')}
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+        ${badge(c.fields.Severity||'Medium')}
+        ${badge(c.fields.Status||'Active')}
+      </div>
     </div>`).join('');
 }
-
-async function submitSafety(){
+async function submitConstraint(){
   const fields={
-    'Type':document.getElementById('sf-type').value,
-    'Severity':document.getElementById('sf-sev').value,
-    'Location':document.getElementById('sf-loc').value,
-    'Description':document.getElementById('sf-desc').value,
-    'Corrective Action':document.getElementById('sf-action').value,
-    'Reported By':document.getElementById('sf-rep').value||localStorage.getItem('user_name')||'',
-    'Date':today()
+    'Constraint': document.getElementById('c-name').value,
+    'Type': document.getElementById('c-type').value,
+    'Severity': document.getElementById('c-sev').value,
+    'Owner': document.getElementById('c-owner').value,
+    'Impact Description': document.getElementById('c-impact').value,
+    'Mitigation Plan': document.getElementById('c-mitig').value,
+    'Date Identified': document.getElementById('c-identified').value||today(),
+    'Status': 'Active'
   };
-  const pid=document.getElementById('sf-proj').value; if(pid) fields['Project']=[pid];
-  if(!fields.Description){toast('Description required','err');return;}
+  const tr=document.getElementById('c-target').value; if(tr) fields['Target Resolution']=tr;
+  const pid=document.getElementById('c-proj').value; if(pid) fields['Project']=[pid];
+  if(!fields.Constraint){toast('Constraint description required','err');return;}
   try {
-    await AT.create(T.safety,fields);
-    AT.bust('safety_all');
-    closeSheet('new-safety');
-    toast('Safety report filed!','ok');
-    ['sf-loc','sf-desc','sf-action'].forEach(id=>document.getElementById(id).value='');
-    if(cur==='safety') loadSafety(); else loadDashboard();
+    await AT.create(T.constraints,fields);
+    AT.bust('cons_open');
+    closeSheet('new-constraint');
+    toast('Constraint logged!','ok');
+    if(cur==='constraints') loadConstraints(); else loadDashboard();
   } catch(e){ toast('Failed: '+e.message,'err'); }
 }
 
-// ============================================================
-// EQUIPMENT
-// ============================================================
-async function loadEquipment(){
-  const el=document.getElementById('eq-list');
+// ── DOCS ──
+let _docsTab='co';
+function docsTab(t,btn){
+  _docsTab=t;
+  document.querySelectorAll('#scr-docs .tbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  loadDocs(t);
+}
+async function loadDocs(tab){
+  const el=document.getElementById('docs-body');
   el.innerHTML=spin();
   try {
-    const eq=await AT.list(T.equipment,{sort:[{field:'Name',direction:'asc'}]});
-    if(!eq.length){el.innerHTML=empty('🔧','No equipment','Add tools and machinery');return;}
-    const si={'Available':'🟢','In Use':'🔵',Maintenance:'🔴'};
-    el.innerHTML=eq.map(e=>`
+    if(tab==='co' || _docsTab==='co'){
+      const cos=await AT.list(T.cos,{sort:[{field:'Date Submitted',direction:'desc'}],maxRecords:50});
+      if(!cos.length){el.innerHTML=`<button class="btn bp" style="width:100%;margin-bottom:14px;border-radius:12px" onclick="openSheet('new-co')">📝 New Change Order</button>`+empty('📝','No change orders','');return;}
+      el.innerHTML=`<button class="btn bp" style="width:100%;margin-bottom:14px;border-radius:12px" onclick="openSheet('new-co')">📝 New Change Order</button>`
+        +cos.map(c=>`
+          <div class="li" style="align-items:flex-start;gap:10px">
+            <div style="min-width:40px;text-align:center">
+              <div style="font-size:11px;color:var(--t3)">${c.fields['CO Number']||'CO'}</div>
+            </div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:15px;font-weight:500">${c.fields.Description?.slice(0,60)||'Change Order'}</div>
+              <div style="font-size:13px;color:var(--t2);margin-top:2px">${c.fields.Type||''}${c.fields.Amount?' · $'+Number(c.fields.Amount).toLocaleString():''}</div>
+              <div style="font-size:12px;color:var(--t3);margin-top:3px">${fmtDate(c.fields['Date Submitted'])}</div>
+            </div>
+            ${badge(c.fields.Status||'Submitted')}
+          </div>`).join('');
+    } else if(tab==='rfi' || _docsTab==='rfi'){
+      const rfis=await AT.list(T.rfis,{sort:[{field:'Date Submitted',direction:'desc'}],maxRecords:50});
+      AT._c['rfis_open']={v:rfis.filter(r=>r.fields.Status==='Open'||r.fields.Status==='Submitted'),t:Date.now()};
+      if(!rfis.length){el.innerHTML=`<button class="btn bp" style="width:100%;margin-bottom:14px;border-radius:12px" onclick="openSheet('new-rfi')">❓ New RFI</button>`+empty('❓','No RFIs','');return;}
+      el.innerHTML=`<button class="btn bp" style="width:100%;margin-bottom:14px;border-radius:12px" onclick="openSheet('new-rfi')">❓ New RFI</button>`
+        +rfis.map(r=>`
+          <div class="li" style="align-items:flex-start;gap:10px">
+            <div style="margin-top:4px">${pdot(r.fields.Priority)}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;color:var(--t3);margin-bottom:2px">${r.fields['RFI Number']||'RFI'}</div>
+              <div style="font-size:15px;font-weight:500">${r.fields.Question?.slice(0,70)||'RFI'}${(r.fields.Question?.length||0)>70?'…':''}</div>
+              <div style="font-size:12px;color:var(--t3);margin-top:4px">${fmtDate(r.fields['Date Submitted'])}${r.fields['Date Due']?' · Due '+fmtDate(r.fields['Date Due']):''}</div>
+            </div>
+            ${badge(r.fields.Status||'Open')}
+          </div>`).join('');
+    } else {
+      const subs=await AT.list(T.submittals,{sort:[{field:'Date Submitted',direction:'desc'}],maxRecords:50});
+      if(!subs.length){el.innerHTML=`<button class="btn bp" style="width:100%;margin-bottom:14px;border-radius:12px" onclick="openSheet('new-submittal')">📎 New Submittal</button>`+empty('📎','No submittals','');return;}
+      el.innerHTML=`<button class="btn bp" style="width:100%;margin-bottom:14px;border-radius:12px" onclick="openSheet('new-submittal')">📎 New Submittal</button>`
+        +subs.map(s=>`
+          <div class="li" style="align-items:flex-start;gap:10px">
+            <div style="min-width:40px;text-align:center">
+              <div style="font-size:11px;color:var(--t3)">${s.fields['Submittal Number']||'SM'}</div>
+            </div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:15px;font-weight:500">${s.fields.Description||'Submittal'}</div>
+              <div style="font-size:13px;color:var(--t2);margin-top:2px">${s.fields['Spec Section']||''}${s.fields.Reviewer?' · '+s.fields.Reviewer:''}</div>
+              <div style="font-size:12px;color:var(--t3);margin-top:3px">${fmtDate(s.fields['Date Submitted'])}</div>
+            </div>
+            ${badge(s.fields.Status||'Submitted')}
+          </div>`).join('');
+    }
+  } catch(e){ el.innerHTML=empty('❌','Error',e.message); }
+}
+
+async function submitRFI(){
+  const fields={
+    'RFI Number': document.getElementById('rfi-num').value,
+    'Question': document.getElementById('rfi-q').value,
+    'Priority': document.getElementById('rfi-pri').value,
+    'Submitted By': document.getElementById('rfi-sub').value||userName(),
+    'Assigned To': document.getElementById('rfi-assign').value,
+    'Date Submitted': today(),
+    'Status': 'Open'
+  };
+  const due=document.getElementById('rfi-due').value; if(due) fields['Date Due']=due;
+  const pid=document.getElementById('rfi-proj').value; if(pid) fields['Project']=[pid];
+  if(!fields.Question){toast('Question required','err');return;}
+  try {
+    await AT.create(T.rfis,fields);
+    AT.bust('rfis_open');
+    closeSheet('new-rfi');
+    toast('RFI submitted!','ok');
+    if(cur==='docs') loadDocs('rfi');
+  } catch(e){ toast('Failed: '+e.message,'err'); }
+}
+
+async function submitCO(){
+  const fields={
+    'CO Number': document.getElementById('co-num').value,
+    'Description': document.getElementById('co-desc').value,
+    'Type': document.getElementById('co-type').value,
+    'Status': document.getElementById('co-status').value,
+    'Requested By': document.getElementById('co-by').value,
+    'Date Submitted': today()
+  };
+  const amt=document.getElementById('co-amt').value; if(amt) fields['Amount']=parseFloat(amt);
+  const days=document.getElementById('co-days').value; if(days) fields['Schedule Days']=parseInt(days);
+  const pid=document.getElementById('co-proj').value; if(pid) fields['Project']=[pid];
+  if(!fields.Description){toast('Description required','err');return;}
+  try {
+    await AT.create(T.cos,fields);
+    closeSheet('new-co');
+    toast('Change order submitted!','ok');
+    if(cur==='docs') loadDocs('co');
+  } catch(e){ toast('Failed: '+e.message,'err'); }
+}
+
+async function submitSubmittal(){
+  const fields={
+    'Submittal Number': document.getElementById('sm-num').value,
+    'Description': document.getElementById('sm-desc').value,
+    'Spec Section': document.getElementById('sm-spec').value,
+    'Status': document.getElementById('sm-status').value,
+    'Submitted By': document.getElementById('sm-by').value||userName(),
+    'Date Submitted': today()
+  };
+  const due=document.getElementById('sm-due').value; if(due) fields['Date Due']=due;
+  const pid=document.getElementById('sm-proj').value; if(pid) fields['Project']=[pid];
+  if(!fields.Description){toast('Description required','err');return;}
+  try {
+    await AT.create(T.submittals,fields);
+    closeSheet('new-submittal');
+    toast('Submittal logged!','ok');
+    if(cur==='docs') loadDocs('sub');
+  } catch(e){ toast('Failed: '+e.message,'err'); }
+}
+
+// ── TEAM ──
+async function loadTeam(){
+  const el=document.getElementById('team-list');
+  el.innerHTML=spin();
+  try {
+    const members=await AT.list(T.team,{sort:[{field:'Name',direction:'asc'}]});
+    if(!members.length){el.innerHTML=empty('👷','No team members','Tap + Add to add your crew');return;}
+    el.innerHTML=members.map(m=>`
       <div class="li">
-        <div class="cicon" style="background:rgba(255,159,10,.12)">🔧</div>
-        <div style="flex:1">
-          <div style="font-size:15px;font-weight:500">${e.fields.Name||'—'}</div>
-          <div style="font-size:13px;color:var(--t2)">${e.fields.Category||''}${e.fields['Serial Number']?' · #'+e.fields['Serial Number']:''}</div>
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--al);color:var(--a);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0">
+          ${(m.fields.Name||'?').split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2)}
         </div>
-        <button onclick="cycleEquip('${e.id}','${e.fields.Status||'Available'}')"
-          style="padding:6px 12px;border-radius:8px;background:var(--s2);font-size:13px;font-weight:600;color:var(--t2)">
-          ${si[e.fields.Status]||'🟢'} ${e.fields.Status||'Available'}
-        </button>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:500">${m.fields.Name||'—'}</div>
+          <div style="font-size:13px;color:var(--t2)">${m.fields.Role||''}${m.fields.Company?' · '+m.fields.Company:''}</div>
+          ${m.fields.Phone||m.fields.Email?`<div style="font-size:12px;color:var(--t3);margin-top:3px">${m.fields.Phone||''} ${m.fields.Email||''}</div>`:''}
+        </div>
+        ${m.fields.Active===false?badge('Inactive'):badge('Active')}
       </div>`).join('');
   } catch(e){ el.innerHTML=empty('❌','Error',e.message); }
 }
 
-async function cycleEquip(id,cur){
-  const next={'Available':'In Use','In Use':'Maintenance',Maintenance:'Available'};
-  try {
-    await AT.update(T.equipment,id,{Status:next[cur]||'Available'});
-    toast('→ '+next[cur],'ok');
-    loadEquipment();
-  } catch(e){ toast('Failed','err'); }
-}
-
-async function submitEquipment(){
+async function submitMember(){
   const fields={
-    'Name':document.getElementById('eq-name').value,
-    'Category':document.getElementById('eq-cat').value,
-    'Status':document.getElementById('eq-status').value,
-    'Serial Number':document.getElementById('eq-serial').value,
-    'Notes':document.getElementById('eq-notes').value
+    'Name': document.getElementById('tm-name').value,
+    'Role': document.getElementById('tm-role').value,
+    'Company': document.getElementById('tm-co').value,
+    'Email': document.getElementById('tm-email').value,
+    'Phone': document.getElementById('tm-phone').value,
+    'Active': true
   };
   if(!fields.Name){toast('Name required','err');return;}
   try {
-    await AT.create(T.equipment,fields);
-    closeSheet('new-equipment');
-    toast('Equipment added!','ok');
-    loadEquipment();
+    await AT.create(T.team,fields);
+    closeSheet('new-member');
+    toast('Member added!','ok');
+    loadTeam();
   } catch(e){ toast('Failed: '+e.message,'err'); }
 }
 
-// ============================================================
-// DELIVERIES
-// ============================================================
-async function loadDeliveries(){
-  const el=document.getElementById('del-list');
+// ── COMMS ──
+async function loadComms(){
+  const el=document.getElementById('comms-list');
   el.innerHTML=spin();
   try {
-    const dels=await AT.list(T.deliveries,{sort:[{field:'Expected Date',direction:'asc'}],maxRecords:100});
-    if(!dels.length){el.innerHTML=empty('📦','No deliveries','Log incoming materials');return;}
-    el.innerHTML=dels.map(d=>`
+    const comms=await AT.list(T.comms,{sort:[{field:'Date',direction:'desc'}],maxRecords:50});
+    if(!comms.length){el.innerHTML=empty('💬','No communications logged','Tap + Log to add one');return;}
+    const chIcon={Email:'📧',Phone:'📞','In-Person':'🤝',Text:'💬',App:'📱'};
+    el.innerHTML=comms.map(c=>`
       <div class="li">
-        <div class="cicon" style="background:rgba(0,122,255,.12)">📦</div>
+        <div style="font-size:26px">${chIcon[c.fields.Channel]||'💬'}</div>
         <div style="flex:1;min-width:0">
-          <div style="font-size:15px;font-weight:500">${d.fields.Material||d.fields.Item||d.fields.Name||'—'}</div>
-          <div style="font-size:13px;color:var(--t2)">${[d.fields.Supplier,d.fields['PO Number']?'PO: '+d.fields['PO Number']:''].filter(Boolean).join(' · ')}</div>
-          ${d.fields['Expected Date']?`<div style="font-size:12px;color:var(--t3);margin-top:3px">Expected: ${fmtDate(d.fields['Expected Date'])}</div>`:''}
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          ${badge(d.fields.Status||'Pending')}
-          ${d.fields.Status!=='Delivered'?`<button onclick="confirmDelivery('${d.id}')" style="font-size:11px;color:var(--a);font-weight:600">Confirm ✓</button>`:''}
+          <div style="font-size:15px;font-weight:500">${c.fields.Subject||'Communication'}</div>
+          <div style="font-size:13px;color:var(--t2);margin-top:2px">${c.fields.From||''}${c.fields.To?' → '+c.fields.To:''}</div>
+          <div style="font-size:12px;color:var(--t3);margin-top:3px">${fmtDate(c.fields.Date)} · ${c.fields.Channel||''}</div>
         </div>
       </div>`).join('');
   } catch(e){ el.innerHTML=empty('❌','Error',e.message); }
 }
 
-async function confirmDelivery(id){
-  try {
-    await AT.update(T.deliveries,id,{Status:'Delivered','Delivery Date':today()});
-    toast('Delivery confirmed!','ok');
-    loadDeliveries();
-  } catch(e){ toast('Failed','err'); }
-}
-
-async function submitDelivery(){
+async function submitComm(){
   const fields={
-    'Material':document.getElementById('dv-item').value,
-    'Supplier':document.getElementById('dv-sup').value,
-    'PO Number':document.getElementById('dv-po').value,
-    'Status':document.getElementById('dv-status').value,
-    'Notes':document.getElementById('dv-notes').value
+    'Subject': document.getElementById('cm-subj').value,
+    'From': document.getElementById('cm-from').value||userName(),
+    'To': document.getElementById('cm-to').value,
+    'Channel': document.getElementById('cm-ch').value,
+    'Date': document.getElementById('cm-date').value||today(),
+    'Message': document.getElementById('cm-msg').value,
+    'Follow Up Required': false
   };
-  const dt=document.getElementById('dv-date').value; if(dt) fields['Expected Date']=dt;
-  const pid=document.getElementById('dv-proj').value; if(pid) fields['Project']=[pid];
-  if(!fields.Material){toast('Material description required','err');return;}
+  const pid=document.getElementById('cm-proj').value; if(pid) fields['Project']=[pid];
+  if(!fields.Subject){toast('Subject required','err');return;}
   try {
-    await AT.create(T.deliveries,fields);
-    closeSheet('new-delivery');
-    toast('Delivery logged!','ok');
-    loadDeliveries();
+    await AT.create(T.comms,fields);
+    closeSheet('new-comm');
+    toast('Communication logged!','ok');
+    loadComms();
   } catch(e){ toast('Failed: '+e.message,'err'); }
 }
 
-// ============================================================
-// INSPECTIONS
-// ============================================================
-async function loadInspections(){
-  const el=document.getElementById('insp-list');
+// ── PROJECTS ──
+async function loadProjects(){
+  const el=document.getElementById('proj-list');
   el.innerHTML=spin();
   try {
-    const insp=await AT.list(T.inspections,{sort:[{field:'Date',direction:'desc'}],maxRecords:100});
-    if(!insp.length){el.innerHTML=empty('✅','No inspections','Start a new inspection');return;}
-    const ri={'Pass':'✅','Fail':'❌','Pass with Conditions':'⚠️'};
-    el.innerHTML=insp.map(i=>`
+    const projs=await AT.list(T.projects,{sort:[{field:'Project Name',direction:'asc'}]});
+    if(!projs.length){el.innerHTML=empty('🏗️','No projects','Add projects in Airtable');return;}
+    const si={'Active':'bg','On Hold':'by','Pre-Construction':'bgr',Completed:'bg',Closeout:'bb','Punch List':'bo'};
+    el.innerHTML=projs.map(p=>`
       <div class="li">
-        <div style="font-size:26px">${ri[i.fields.Result]||'📋'}</div>
+        <div class="cicon" style="background:var(--al);flex-shrink:0">🏗️</div>
         <div style="flex:1;min-width:0">
-          <div style="font-size:15px;font-weight:500">${i.fields.Type||i.fields.Name||'Inspection'}</div>
-          <div style="font-size:13px;color:var(--t2)">${[i.fields.Inspector,i.fields['Project Name']?.[0]].filter(Boolean).join(' · ')||'—'}</div>
-          <div style="font-size:12px;color:var(--t3);margin-top:3px">${fmtDate(i.fields.Date||i.createdTime)}</div>
+          <div style="font-size:15px;font-weight:500">${p.fields['Project Name']||'—'}</div>
+          <div style="font-size:13px;color:var(--t2);margin-top:2px">${p.fields.Client||p.fields.GC||''}</div>
+          ${p.fields['Project Address']?`<div style="font-size:12px;color:var(--t3);margin-top:3px">${p.fields['Project Address']}</div>`:''}
         </div>
-        ${badge(i.fields.Result||'Pass')}
+        ${badge(p.fields.Status||'Active')}
       </div>`).join('');
   } catch(e){ el.innerHTML=empty('❌','Error',e.message); }
 }
 
-async function submitInspection(){
-  const fields={
-    'Type':document.getElementById('in-type').value,
-    'Inspector':document.getElementById('in-insp').value||localStorage.getItem('user_name')||'',
-    'Result':document.getElementById('in-result').value,
-    'Notes':document.getElementById('in-notes').value,
-    'Date':today()
-  };
-  const pid=document.getElementById('in-proj').value; if(pid) fields['Project']=[pid];
-  try {
-    await AT.create(T.inspections,fields);
-    closeSheet('new-inspection');
-    toast('Inspection filed!','ok');
-    loadInspections();
-  } catch(e){ toast('Failed: '+e.message,'err'); }
-}
-
-// ============================================================
-// REPORTS
-// ============================================================
-let _reportTab='daily';
-function reportTab(t,btn){
-  _reportTab=t;
-  document.querySelectorAll('#scr-reports .tbtn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  loadReport(t);
-}
-
-async function loadReport(tab){
+// ── REPORTS ──
+async function loadReports(){
   const el=document.getElementById('report-body');
   el.innerHTML=spin();
   try {
-    if(tab==='daily'){
-      const [logs,tasks,safety,time]=await Promise.all([
-        AT.list(T.logs,{filterByFormula:`IS_SAME({Date},'${today()}','day')`}),
-        AT.list(T.tasks,{filterByFormula:`AND({Status}='Done',IS_SAME({Last Modified},'${today()}','day'))`,maxRecords:50}),
-        AT.list(T.safety,{filterByFormula:`IS_SAME({Date},'${today()}','day')`}),
-        AT.list(T.time,{filterByFormula:`IS_SAME({Date},'${today()}','day')`})
-      ]);
-      const hrs=time.reduce((s,e)=>{
-        if(e.fields['Clock In']&&e.fields['Clock Out']) return s+(new Date(e.fields['Clock Out'])-new Date(e.fields['Clock In']))/3600000;
-        return s;
-      },0);
-      el.innerHTML=`
-        <div style="background:var(--s);border-radius:12px;overflow:hidden;margin-bottom:12px">
-          <div class="frow" style="font-weight:700;font-size:17px">Daily Report — ${fmtDate(today())}</div>
-          <div class="frow"><div class="fkey">Daily Logs</div><div class="fval">${logs.length}</div></div>
-          <div class="frow"><div class="fkey">Total Hours</div><div class="fval">${hrs.toFixed(1)}h</div></div>
-          <div class="frow"><div class="fkey">Tasks Completed</div><div class="fval">${tasks.length}</div></div>
-          <div class="frow"><div class="fkey" style="${safety.length?'color:var(--r)':''}>Safety Reports</div><div class="fval" style="${safety.length?'color:var(--r)':''}">${safety.length}</div></div>
-        </div>
-        ${logs.map(l=>`
-          <div style="background:var(--s);border-radius:12px;padding:14px 16px;margin-bottom:10px">
-            <div style="font-size:12px;font-weight:600;color:var(--t2);margin-bottom:6px">${l.fields.Weather||''} · ${l.fields.Shift||'Day'}</div>
-            <div style="font-size:15px">${l.fields['Work Performed']||'—'}</div>
-            ${l.fields.Notes?`<div style="font-size:13px;color:var(--t2);margin-top:8px;padding-top:8px;border-top:1px solid var(--sep)">${l.fields.Notes}</div>`:''}
-          </div>`).join('')}
-        ${safety.length?`<div style="font-size:16px;font-weight:700;color:var(--r);margin:14px 0 8px">⚠️ Safety Reports</div>`
-          +safety.map(s=>`<div style="background:var(--s);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--r)">
-            <div style="font-weight:600">${s.fields.Type} — ${s.fields.Severity}</div>
-            <div style="font-size:14px;margin-top:6px">${s.fields.Description}</div>
-          </div>`).join(''):''}
-        <button class="btn bs" style="width:100%;margin-top:8px" onclick="copyReport()">📋 Copy Report</button>
-      `;
-    } else {
-      const end=new Date(); const start=new Date(end-7*86400000);
-      const fmt=d=>`${d.getFullYear()},${d.getMonth()+1},${d.getDate()}`;
-      const f=`AND({Date}>=DATE(${fmt(start)}),{Date}<=DATE(${fmt(end)}))`;
-      const [logs,safety,time]=await Promise.all([
-        AT.list(T.logs,{filterByFormula:f}),
-        AT.list(T.safety,{filterByFormula:f}),
-        AT.list(T.time,{filterByFormula:f})
-      ]);
-      const hrs=time.reduce((s,e)=>{
-        if(e.fields['Clock In']&&e.fields['Clock Out']) return s+(new Date(e.fields['Clock Out'])-new Date(e.fields['Clock In']))/3600000;
-        return s;
-      },0);
-      el.innerHTML=`
-        <div style="background:var(--s);border-radius:12px;overflow:hidden;margin-bottom:12px">
-          <div class="frow" style="font-weight:700;font-size:17px">Weekly Summary</div>
-          <div class="frow"><div class="fkey">Period</div><div class="fval" style="font-size:13px">${fmtDate(start)} – ${fmtDate(end)}</div></div>
-          <div class="frow"><div class="fkey">Daily Logs</div><div class="fval">${logs.length}</div></div>
-          <div class="frow"><div class="fkey">Total Labor Hours</div><div class="fval">${hrs.toFixed(1)}h</div></div>
-          <div class="frow"><div class="fkey">Safety Reports</div><div class="fval">${safety.length}</div></div>
-        </div>
-        <button class="btn bs" style="width:100%;margin-top:8px" onclick="copyReport()">📋 Copy Report</button>
-      `;
-    }
+    const [projs,logs,cons,rfis,cos,subs]=await Promise.all([
+      AT.list(T.projects,{fields:['Project Name','Status']}),
+      AT.list(T.logs,{fields:['Title','Date','Category','Priority','Status'],sort:[{field:'Date',direction:'desc'}],maxRecords:100}),
+      AT.list(T.constraints,{fields:['Constraint','Severity','Status']}),
+      AT.list(T.rfis,{fields:['RFI Number','Status','Priority']}),
+      AT.list(T.cos,{fields:['CO Number','Status','Amount']}),
+      AT.list(T.submittals,{fields:['Submittal Number','Status']})
+    ]);
+    const totalCO=cos.reduce((s,c)=>s+(c.fields.Amount||0),0);
+    el.innerHTML=`
+      <div style="background:var(--s);border-radius:12px;overflow:hidden;margin-bottom:12px">
+        <div class="frow" style="font-weight:700;font-size:17px">Project Summary</div>
+        <div class="frow"><div class="fkey">Active Projects</div><div class="fval">${projs.filter(p=>p.fields.Status==='Active'||!p.fields.Status).length}</div></div>
+        <div class="frow"><div class="fkey">Total Log Entries</div><div class="fval">${logs.length}</div></div>
+        <div class="frow"><div class="fkey">Open Constraints</div><div class="fval" style="${cons.filter(c=>c.fields.Status==='Active').length?'color:var(--r)':''}">${cons.filter(c=>c.fields.Status==='Active').length}</div></div>
+        <div class="frow"><div class="fkey">Open RFIs</div><div class="fval">${rfis.filter(r=>r.fields.Status==='Open'||r.fields.Status==='Submitted').length}</div></div>
+        <div class="frow"><div class="fkey">Total Change Orders</div><div class="fval">${cos.length} · $${totalCO.toLocaleString()}</div></div>
+        <div class="frow"><div class="fkey">Submittals</div><div class="fval">${subs.length}</div></div>
+      </div>
+      <div style="background:var(--s);border-radius:12px;overflow:hidden;margin-bottom:12px">
+        <div class="frow" style="font-weight:700">Logs by Category</div>
+        ${['Safety','Quality','Schedule','Scope','Weather','Material','Equipment','General'].map(cat=>{
+          const count=logs.filter(l=>l.fields.Category===cat).length;
+          return count?`<div class="frow"><div class="fkey">${cat}</div><div class="fval">${count}</div></div>`:'';
+        }).join('')}
+      </div>
+      <button class="btn bs" style="width:100%;margin-top:8px" onclick="copyReport()">📋 Copy Report</button>
+    `;
   } catch(e){ el.innerHTML=empty('❌','Error',e.message); }
 }
-
 function copyReport(){
   navigator.clipboard.writeText(document.getElementById('report-body').innerText)
     .then(()=>toast('Report copied!','ok'))
     .catch(()=>toast('Copy failed','err'));
 }
 
-// ============================================================
-// SETTINGS
-// ============================================================
-async function loadSettings(){
+// ── SETTINGS ──
+function loadSettings(){
   const t=localStorage.getItem('at_token')||'';
   const el=document.getElementById('cfg-token');
   el.dataset.orig=t;
   el.value=t?'••••'+t.slice(-4):'';
   document.getElementById('cfg-name').value=localStorage.getItem('user_name')||'';
-  await fillProjects('cfg-proj');
-  const dp=localStorage.getItem('default_proj');
-  if(dp) document.getElementById('cfg-proj').value=dp;
 }
-
 function saveSettings(){
   const tel=document.getElementById('cfg-token');
   const t=tel.value.startsWith('••')?tel.dataset.orig:tel.value;
   if(t) localStorage.setItem('at_token',t);
-  const name=document.getElementById('cfg-name').value;
-  if(name) localStorage.setItem('user_name',name);
-  const p=document.getElementById('cfg-proj').value;
-  if(p) localStorage.setItem('default_proj',p);
-  // Pre-fill name fields
-  ['sf-rep','in-insp'].forEach(id=>{ const el=document.getElementById(id); if(el&&name) el.value=name; });
-  toast('Settings saved!','ok');
+  localStorage.setItem('user_name',document.getElementById('cfg-name').value);
+  toast('Saved!','ok');
 }
 
-// ============================================================
-// SHEET LAZY-LOAD (populate dropdowns when sheets open)
-// ============================================================
-document.getElementById('sheet-new-log').addEventListener('click',async()=>{
-  if(!document.getElementById('l-proj').options.length) await fillProjects('l-proj');
-});
-document.getElementById('sheet-new-task').addEventListener('click',async()=>{
-  if(!document.getElementById('tk-proj').options.length){ await fillProjects('tk-proj'); await fillWorkers('tk-assign'); }
-});
-['new-safety','sf-proj'].forEach(_=>{
-  document.getElementById('sheet-new-safety').addEventListener('click',async()=>{
-    if(!document.getElementById('sf-proj').options.length) await fillProjects('sf-proj');
+// ── SHEET LAZY LOADERS ──
+['new-log','new-constraint','new-rfi','new-co','new-submittal','new-comm'].forEach(name=>{
+  const projMap={'new-log':'l-proj','new-constraint':'c-proj','new-rfi':'rfi-proj','new-co':'co-proj','new-submittal':'sm-proj','new-comm':'cm-proj'};
+  document.getElementById('sheet-'+name)?.addEventListener('click',async()=>{
+    const selId=projMap[name];
+    if(selId&&!document.getElementById(selId)?.options.length) await fillProjSelect(selId);
   });
 });
-document.getElementById('sheet-new-worker').addEventListener('click',async()=>{
-  if(!document.getElementById('w-proj').options.length) await fillProjects('w-proj');
-});
-document.getElementById('sheet-new-delivery').addEventListener('click',async()=>{
-  if(!document.getElementById('dv-proj').options.length) await fillProjects('dv-proj');
-});
-document.getElementById('sheet-new-inspection').addEventListener('click',async()=>{
-  if(!document.getElementById('in-proj').options.length) await fillProjects('in-proj');
-  const name=localStorage.getItem('user_name');
-  if(name&&!document.getElementById('in-insp').value) document.getElementById('in-insp').value=name;
+document.getElementById('sheet-new-log')?.addEventListener('click',()=>{
+  const n=userName(); if(n){const el=document.getElementById('rfi-sub'); if(el&&!el.value) el.value=n;}
 });
 
-// ============================================================
-// INIT
-// ============================================================
+// ── INIT ──
 (function init(){
   document.getElementById('l-date').value=today();
-  const name=localStorage.getItem('user_name');
-  if(name){ ['sf-rep','in-insp'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=name; }); }
-  loadDashboard();
+  document.getElementById('cm-date').value=today();
+  document.getElementById('c-identified').value=today();
   const token=localStorage.getItem('at_token')||AT_TOKEN;
   if(token==='YOUR_AIRTABLE_TOKEN'){
-    setTimeout(()=>{ toast('Tap ⚙️ to configure your Airtable token'); go('settings'); },800);
+    setTimeout(()=>{ toast('Tap ⚙️ to add your Airtable token'); go('settings'); },800);
   }
+  loadDashboard();
 })();
 </script>
 </body>

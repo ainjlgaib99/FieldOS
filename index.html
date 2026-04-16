@@ -466,12 +466,28 @@ const T = {
 };
 
 // ── AIRTABLE ──
+function toQS(params){
+  const p=[];
+  for(const [key,val] of Object.entries(params)){
+    if(val===undefined||val===null||val==='') continue;
+    if(Array.isArray(val)){
+      if(val.length && typeof val[0]==='object'){
+        val.forEach((obj,i)=>Object.entries(obj).forEach(([k,v])=>p.push(encodeURIComponent(`${key}[${i}][${k}]`)+'='+encodeURIComponent(v))));
+      } else {
+        val.forEach(v=>p.push(encodeURIComponent(`${key}[]`)+'='+encodeURIComponent(v)));
+      }
+    } else {
+      p.push(encodeURIComponent(key)+'='+encodeURIComponent(val));
+    }
+  }
+  return p.join('&');
+}
 const AT = {
   token(){ return localStorage.getItem('at_token') || AT_TOKEN; },
   async req(tableId, opts={}){
     let url = `https://api.airtable.com/v0/${BASE}/${tableId}`;
     if(opts.id) url += '/'+opts.id;
-    if(opts.params) url += '?'+new URLSearchParams(opts.params);
+    if(opts.params) url += '?'+toQS(opts.params);
     const r = await fetch(url,{
       method: opts.method||'GET',
       headers:{ Authorization:'Bearer '+this.token(), 'Content-Type':'application/json' },

@@ -449,6 +449,7 @@ input,select,textarea{font:inherit;color:inherit}
 
 <div id="tc"></div>
 
+<script src="utils.js"></script>
 <script>
 // ── CONFIG ──
 const AT_TOKEN = 'YOUR_AIRTABLE_TOKEN'; // injected at build time
@@ -466,22 +467,6 @@ const T = {
 };
 
 // ── AIRTABLE ──
-function toQS(params){
-  const p=[];
-  for(const [key,val] of Object.entries(params)){
-    if(val===undefined||val===null||val==='') continue;
-    if(Array.isArray(val)){
-      if(val.length && typeof val[0]==='object'){
-        val.forEach((obj,i)=>Object.entries(obj).forEach(([k,v])=>p.push(encodeURIComponent(`${key}[${i}][${k}]`)+'='+encodeURIComponent(v))));
-      } else {
-        val.forEach(v=>p.push(encodeURIComponent(`${key}[]`)+'='+encodeURIComponent(v)));
-      }
-    } else {
-      p.push(encodeURIComponent(key)+'='+encodeURIComponent(val));
-    }
-  }
-  return p.join('&');
-}
 const AT = {
   token(){ return localStorage.getItem('at_token') || AT_TOKEN; },
   async req(tableId, opts={}){
@@ -517,22 +502,9 @@ const AT = {
 };
 
 // ── HELPERS ──
-function today(){ return new Date().toISOString().split('T')[0]; }
-function fmtDate(d){ if(!d) return '—'; return new Date(d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
+// today, fmtDate, badge, pdot live in utils.js
 function spin(){ return '<div class="spin-wrap"><div class="spinner"></div></div>'; }
 function empty(icon,title,sub=''){ return `<div class="empty"><div class="eicon">${icon}</div><div class="etitle">${title}</div>${sub?`<div style="font-size:14px">${sub}</div>`:''}</div>`; }
-function badge(s){
-  const m={
-    Active:'bo', Open:'bo', Draft:'bgr', Submitted:'bb', 'Under Review':'by',
-    Approved:'bg', Executed:'bg', Resolved:'bg', Mitigated:'bg', Closed:'bg', Answered:'bg',
-    Denied:'br', Rejected:'br', 'Revise & Resubmit':'br',
-    Critical:'br', High:'by', Medium:'bo', Low:'bg',
-    'On Hold':'by', 'Punch List':'bo', Closeout:'bb', Completed:'bg',
-    'Pre-Construction':'bgr', Accepted:'bg', 'Approved as Noted':'by'
-  };
-  return `<span class="badge ${m[s]||'bb'}">${s}</span>`;
-}
-function pdot(p){ const m={Critical:'dr',High:'dr',Medium:'dy',Low:'dg'}; return `<div class="dot ${m[p]||'dgr'}"></div>`; }
 function userName(){ return localStorage.getItem('user_name')||''; }
 
 async function fillProjSelect(...ids){
@@ -597,7 +569,7 @@ function loadScreen(s){
     case 'dashboard':   loadDashboard(); break;
     case 'logs':        loadLogs(); break;
     case 'constraints': loadConstraints(); break;
-    case 'docs':        loadDocs('co'); break;
+    case 'docs':        loadDocs(_docsTab); break;
     case 'team':        loadTeam(); break;
     case 'comms':       loadComms(); break;
     case 'projects':    loadProjects(); break;
@@ -775,7 +747,7 @@ async function loadDocs(tab){
   const el=document.getElementById('docs-body');
   el.innerHTML=spin();
   try {
-    if(tab==='co' || _docsTab==='co'){
+    if(tab==='co'){
       const cos=await AT.list(T.cos,{sort:[{field:'Date Submitted',direction:'desc'}],maxRecords:50});
       if(!cos.length){el.innerHTML=`<button class="btn bp" style="width:100%;margin-bottom:14px;border-radius:12px" onclick="openSheet('new-co')">📝 New Change Order</button>`+empty('📝','No change orders','');return;}
       el.innerHTML=`<button class="btn bp" style="width:100%;margin-bottom:14px;border-radius:12px" onclick="openSheet('new-co')">📝 New Change Order</button>`
@@ -791,7 +763,7 @@ async function loadDocs(tab){
             </div>
             ${badge(c.fields.Status||'Submitted')}
           </div>`).join('');
-    } else if(tab==='rfi' || _docsTab==='rfi'){
+    } else if(tab==='rfi'){
       const rfis=await AT.list(T.rfis,{sort:[{field:'Date Submitted',direction:'desc'}],maxRecords:50});
       AT._c['rfis_open']={v:rfis.filter(r=>r.fields.Status==='Open'||r.fields.Status==='Submitted'),t:Date.now()};
       if(!rfis.length){el.innerHTML=`<button class="btn bp" style="width:100%;margin-bottom:14px;border-radius:12px" onclick="openSheet('new-rfi')">❓ New RFI</button>`+empty('❓','No RFIs','');return;}

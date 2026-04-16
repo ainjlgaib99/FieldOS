@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fieldos-airtable": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["mcp/airtable-server.js"],
+      "env": {
+        "AIRTABLE_TOKEN": "${AIRTABLE_TOKEN}"
+      }
+    }
+  }
+}

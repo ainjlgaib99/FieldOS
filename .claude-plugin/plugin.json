@@ -1,0 +1,7 @@
+{
+  "name": "fieldos",
+  "description": "Skills, hooks, and Airtable MCP tools for FieldOS development",
+  "version": "1.0.0",
+  "author": { "name": "FieldOS" },
+  "license": "MIT"
+}

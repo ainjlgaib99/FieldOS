@@ -9,6 +9,7 @@
 <meta name="theme-color" content="#E8510A" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1C1C1E" media="(prefers-color-scheme: dark)">
 <title>FieldOS</title>
+<link rel="manifest" href="manifest.json">
 <style>
 :root{--a:#E8510A;--al:rgba(232,81,10,.12);--bg:#F2F2F7;--s:#FFF;--s2:#F2F2F7;--t1:#000;--t2:#6C6C70;--t3:#AEAEB2;--sep:rgba(60,60,67,.12);--g:#34C759;--y:#FF9F0A;--r:#FF3B30;--b:#007AFF}
 @media(prefers-color-scheme:dark){:root{--bg:#000;--s:#1C1C1E;--s2:#2C2C2E;--t1:#FFF;--t2:#98989F;--t3:#636366;--sep:rgba(84,84,88,.6)}}
@@ -118,10 +119,25 @@ input,select,textarea{font:inherit;color:inherit}
 .frow:only-child{border-radius:12px;border-bottom:none}
 .fkey{font-size:15px}
 .fval{font-size:15px;color:var(--t2);max-width:55%;text-align:right;word-break:break-word}
+/* PWA ENHANCEMENTS */
+#install-banner{display:none;margin:12px 16px 0;background:var(--a);color:#fff;border-radius:12px;padding:12px 14px;align-items:center;gap:10px;font-size:14px;font-weight:500}
+#install-banner.show{display:flex}
+#install-banner button{background:rgba(255,255,255,.25);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:600;color:#fff;flex-shrink:0}
+#offline-bar{display:none;background:var(--y);color:#000;text-align:center;padding:6px;font-size:13px;font-weight:600;position:sticky;top:0;z-index:99}
+#offline-bar.show{display:block}
+.photo-preview{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.photo-preview img{width:72px;height:72px;object-fit:cover;border-radius:8px;border:1.5px solid var(--sep)}
+.geo-row{display:flex;align-items:center;gap:8px}
+.geo-row .fi{flex:1}
+.geo-btn{flex-shrink:0;background:var(--al);color:var(--a);border-radius:10px;padding:12px;font-size:18px;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center}
+.cam-btn{width:100%;padding:12px;background:var(--s2);border-radius:10px;color:var(--t2);font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;border:1.5px dashed var(--sep)}
+input[type=file]{display:none}
 </style>
 </head>
 <body>
 <div id="app">
+<div id="offline-bar">📡 Offline — changes will sync when connection returns</div>
+<div id="install-banner"><span style="flex:1">📲 Add FieldOS to your home screen for the best experience</span><button onclick="installPWA()">Install</button><button onclick="document.getElementById('install-banner').classList.remove('show')" style="background:none;opacity:.7;padding:4px 8px">✕</button></div>
 
 <div class="hdr">
   <div class="hdr-inner">
@@ -451,21 +467,21 @@ input,select,textarea{font:inherit;color:inherit}
 
 <script>
 // ── CONFIG ──
-const AT_TOKEN = 'YOUR_AIRTABLE_TOKEN'; // injected at build time
-const BASE = 'appZCJsrVAGM05AgJ';
+// All API calls go through the gateway — no token in the browser
+const GATEWAY = 'https://nexus.paynekiller1204.workers.dev';
 const T = {
-  projects:    'tblTbN6Y1wjsHzBSz',
-  logs:        'tblJvYLpt96EKyRBc',
-  constraints: 'tblbARfnT4DRBSUL5',
-  comms:       'tblaMTiWZvsxjKiR6',
-  cos:         'tbljkAG7aDgM0Imyn',
-  rfis:        'tblUWQS2ReW73GJsy',
-  submittals:  'tblo8GH6y5ZF8QpXn',
-  team:        'tbllE4hlKH7bsvbhZ',
-  audit:       'tblhCHK0eNhIn5yHY'
+  projects:    'Projects',
+  logs:        'Daily Logs',
+  constraints: 'Constraints',
+  comms:       'Communications',
+  cos:         'Change Orders',
+  rfis:        'RFIs',
+  submittals:  'Submittals',
+  team:        'Team',
+  audit:       'Audit Log'
 };
 
-// ── AIRTABLE ──
+// ── AIRTABLE (via gateway) ──
 function toQS(params){
   const p=[];
   for(const [key,val] of Object.entries(params)){
@@ -483,14 +499,13 @@ function toQS(params){
   return p.join('&');
 }
 const AT = {
-  token(){ return localStorage.getItem('at_token') || AT_TOKEN; },
   async req(tableId, opts={}){
-    let url = `https://api.airtable.com/v0/${BASE}/${tableId}`;
+    let url = `${GATEWAY}/api/fieldos/${encodeURIComponent(tableId)}`;
     if(opts.id) url += '/'+opts.id;
     if(opts.params) url += '?'+toQS(opts.params);
     const r = await fetch(url,{
       method: opts.method||'GET',
-      headers:{ Authorization:'Bearer '+this.token(), 'Content-Type':'application/json' },
+      headers:{ 'Content-Type':'application/json' },
       body: opts.body ? JSON.stringify(opts.body) : undefined
     });
     if(!r.ok) throw new Error(`AT ${r.status}`);
@@ -648,7 +663,14 @@ async function loadDashboard(){
           ${badge(c.fields.Severity||'Medium')}
         </div>`).join('');
     }
-  } catch(e){ toast('Load failed: '+e.message,'err'); }
+  } catch(e){
+    toast('Load failed: '+e.message,'err');
+    console.error('[FieldOS] loadDashboard error:', e);
+    const errHtml=`<div class="card" style="padding:16px;text-align:center;color:var(--r)">⚠ Failed to load — check connection<br><span style="font-size:12px;color:var(--t2)">${e.message}</span></div>`;
+    document.getElementById('d-logs').innerHTML=errHtml;
+    document.getElementById('d-cons').innerHTML=errHtml;
+    ['st-proj','st-logs','st-con','st-rfi'].forEach(id=>{document.getElementById(id).textContent='!';});
+  }
 }
 
 // ── LOGS ──
@@ -1060,13 +1082,17 @@ document.getElementById('sheet-new-log')?.addEventListener('click',()=>{
 });
 
 // ── INIT ──
-(function init(){
+(async function init(){
   document.getElementById('l-date').value=today();
   document.getElementById('cm-date').value=today();
   document.getElementById('c-identified').value=today();
-  const token=localStorage.getItem('at_token')||AT_TOKEN;
-  if(token==='YOUR_AIRTABLE_TOKEN'){
-    setTimeout(()=>{ toast('Tap ⚙️ to add your Airtable token'); go('settings'); },800);
+  // Gateway connectivity check — look at DevTools console if data won't load
+  try {
+    const ping = await fetch(`${GATEWAY}/api/fieldos/${encodeURIComponent(T.projects)}?maxRecords=1`);
+    console.log(`[FieldOS] Gateway ${GATEWAY} → ${ping.status} ${ping.ok?'OK':'ERROR'}`);
+    if(!ping.ok) console.warn('[FieldOS] Gateway returned non-200. Check Cloudflare Worker + AIRTABLE_API_KEY secret.');
+  } catch(e) {
+    console.error('[FieldOS] Gateway unreachable:', e.message);
   }
   loadDashboard();
 })();

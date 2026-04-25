@@ -737,7 +737,7 @@ async function loadDashboard(){
   try {
     const [projs, logs, cons, rfis] = await Promise.all([
       AT.cached('projs',()=>AT.list(T.projects,{fields:['Project Name','Status']})),
-      AT.cached('logs_wk',()=>AT.list(T.logs,{fields:['Title','Date','Priority','Status','Project Name'],sort:[{field:'Date',direction:'desc'}],maxRecords:20})),
+      AT.cached('logs_wk',()=>AT.list(T.logs,{fields:['Title','Date','Priority','Status','Category','Location'],sort:[{field:'Date',direction:'desc'}],maxRecords:20})),
       AT.cached('cons_open',()=>AT.list(T.constraints,{filterByFormula:"OR({Status}='Active',{Status}='')"})),
       AT.cached('rfis_open',()=>AT.list(T.rfis,{filterByFormula:"OR({Status}='Open',{Status}='Submitted')"}))
     ]);

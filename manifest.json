@@ -1,0 +1,57 @@
+{
+  "name": "FieldOS",
+  "short_name": "FieldOS",
+  "description": "Construction field reporting, constraint tracking, and daily logs",
+  "start_url": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#000000",
+  "theme_color": "#E8510A",
+  "categories": ["productivity", "business"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "New Log Entry",
+      "short_name": "Log",
+      "description": "Quickly add a daily log entry",
+      "url": "/?action=new-log",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "New Constraint",
+      "short_name": "Constraint",
+      "description": "Log a new constraint or blocker",
+      "url": "/?action=new-constraint",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Active Constraints",
+      "short_name": "Constraints",
+      "description": "View all active constraints",
+      "url": "/?screen=constraints",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "share_target": {
+    "action": "/",
+    "method": "GET",
+    "params": {
+      "title": "share_title",
+      "text": "share_text",
+      "url": "share_url"
+    }
+  },
+  "screenshots": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "FieldOS Dashboard"
+    }
+  ]
+}

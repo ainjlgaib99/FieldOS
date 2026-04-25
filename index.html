@@ -301,7 +301,19 @@ input[type=file]{display:none}
     <select class="fsl" id="l-pri"><option>Low</option><option selected>Medium</option><option>High</option><option>Critical</option></select>
   </div>
   <div class="fg"><label class="fl">Description</label><textarea class="fta" id="l-desc" placeholder="What happened, work performed, observations..."></textarea></div>
-  <div class="fg"><label class="fl">Location</label><input class="fi" id="l-loc" placeholder="e.g. Level 3 West Wing"></div>
+  <div class="fg">
+    <label class="fl">Location</label>
+    <div class="geo-row">
+      <input class="fi" id="l-loc" placeholder="e.g. Level 3 West Wing">
+      <button class="geo-btn" onclick="geoTag()" title="Use GPS location">📍</button>
+    </div>
+  </div>
+  <div class="fg">
+    <label class="fl">Photos</label>
+    <button class="cam-btn" onclick="document.getElementById('l-photos').click()">📷 Tap to capture or attach photos</button>
+    <input type="file" id="l-photos" accept="image/*" capture="environment" multiple onchange="previewPhotos(this)">
+    <div class="photo-preview" id="l-photo-preview"></div>
+  </div>
   <div class="sacts">
     <button class="btn bs" onclick="closeSheet('new-log')">Cancel</button>
     <button class="btn bp" onclick="submitLog()">Submit</button>
@@ -466,6 +478,105 @@ input[type=file]{display:none}
 <div id="tc"></div>
 
 <script>
+// ── PWA CORE ──
+let _installPrompt = null;
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(() => {});
+  navigator.serviceWorker.addEventListener('message', e => {
+    if (e.data?.type === 'sync-start') toast('Syncing offline logs...', 'ok');
+  });
+}
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  _installPrompt = e;
+  document.getElementById('install-banner').classList.add('show');
+});
+window.addEventListener('appinstalled', () => {
+  document.getElementById('install-banner').classList.remove('show');
+  _installPrompt = null;
+});
+function installPWA() {
+  if (!_installPrompt) return;
+  _installPrompt.prompt();
+  _installPrompt.userChoice.then(() => { _installPrompt = null; });
+}
+window.addEventListener('online', () => {
+  document.getElementById('offline-bar').classList.remove('show');
+  toast('Back online — syncing...', 'ok');
+  if ('serviceWorker' in navigator && 'SyncManager' in window) {
+    navigator.serviceWorker.ready.then(sw => sw.sync.register('fieldos-sync'));
+  }
+});
+window.addEventListener('offline', () => {
+  document.getElementById('offline-bar').classList.add('show');
+});
+if (!navigator.onLine) document.getElementById('offline-bar').classList.add('show');
+
+// ── CAMERA / GEO HELPERS ──
+let _capturedPhotos = [];
+function previewPhotos(input) {
+  _capturedPhotos = Array.from(input.files);
+  const prev = document.getElementById('l-photo-preview');
+  prev.innerHTML = '';
+  _capturedPhotos.forEach(f => {
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(f);
+    prev.appendChild(img);
+  });
+}
+function geoTag() {
+  if (!navigator.geolocation) { toast('Geolocation not supported', 'err'); return; }
+  const btn = document.querySelector('.geo-btn');
+  btn.textContent = '⏳';
+  navigator.geolocation.getCurrentPosition(pos => {
+    const { latitude: lat, longitude: lng } = pos.coords;
+    const locInput = document.getElementById('l-loc');
+    if (!locInput.value) locInput.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+    else locInput.value += ` (${lat.toFixed(5)}, ${lng.toFixed(5)})`;
+    btn.textContent = '✅';
+    setTimeout(() => btn.textContent = '📍', 2000);
+  }, err => {
+    btn.textContent = '📍';
+    toast('Location error: ' + err.message, 'err');
+  }, { enableHighAccuracy: true, timeout: 10000 });
+}
+
+// ── WEB SHARE ──
+async function shareReport() {
+  const body = document.getElementById('report-body');
+  if (!body) return;
+  const text = body.innerText;
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: 'FieldOS Report', text });
+    } catch(e) { if (e.name !== 'AbortError') navigator.clipboard?.writeText(text); }
+  } else {
+    navigator.clipboard?.writeText(text);
+    toast('Report copied to clipboard', 'ok');
+  }
+}
+
+// ── WAKE LOCK (keep screen on during active use) ──
+let _wakeLock = null;
+async function requestWakeLock() {
+  try {
+    if ('wakeLock' in navigator) _wakeLock = await navigator.wakeLock.request('screen');
+  } catch(e) {}
+}
+document.addEventListener('visibilitychange', async () => {
+  if (_wakeLock && document.visibilityState === 'visible') requestWakeLock();
+});
+
+// ── URL SHORTCUT HANDLING ──
+(function handleShortcut() {
+  const params = new URLSearchParams(location.search);
+  const action = params.get('action');
+  const screen = params.get('screen');
+  if (screen) window.addEventListener('DOMContentLoaded', () => go(screen));
+  if (action === 'new-log') window.addEventListener('DOMContentLoaded', () => setTimeout(() => openSheet('new-log'), 300));
+  if (action === 'new-constraint') window.addEventListener('DOMContentLoaded', () => setTimeout(() => openSheet('new-constraint'), 300));
+})();
+
 // ── CONFIG ──
 // All API calls go through the gateway — no token in the browser
 const GATEWAY = 'https://nexus.paynekiller1204.workers.dev';
@@ -712,16 +823,20 @@ async function submitLog(){
     'Submitted By': userName(),
     'Status': 'Open'
   };
+  if(_capturedPhotos.length) fields['Description'] += `\n\n[${_capturedPhotos.length} photo(s) attached — upload to cloud storage to link]`;
   const pid=document.getElementById('l-proj').value; if(pid) fields['Project']=[pid];
-  if(!fields.Title){toast('Title required','err');return;}
+  if(!fields.Title){toast('Title required','err');navigator.vibrate?.([100,50,100]);return;}
   try {
     await AT.create(T.logs,fields);
     AT.bust('logs_wk');
+    navigator.vibrate?.([50]);
     closeSheet('new-log');
     toast('Log submitted!','ok');
     ['l-title','l-desc','l-loc'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('l-photo-preview').innerHTML='';
+    _capturedPhotos=[];
     if(cur==='logs') loadLogs(); else loadDashboard();
-  } catch(e){ toast('Failed: '+e.message,'err'); }
+  } catch(e){ toast('Failed: '+e.message,'err'); navigator.vibrate?.([200,100,200,100,200]); }
 }
 
 // ── CONSTRAINTS ──
@@ -1043,7 +1158,10 @@ async function loadReports(){
           return count?`<div class="frow"><div class="fkey">${cat}</div><div class="fval">${count}</div></div>`:'';
         }).join('')}
       </div>
-      <button class="btn bs" style="width:100%;margin-top:8px" onclick="copyReport()">📋 Copy Report</button>
+      <div style="display:flex;gap:10px;margin-top:8px">
+        <button class="btn bs" style="flex:1" onclick="copyReport()">📋 Copy</button>
+        <button class="btn bs" style="flex:1" onclick="shareReport()">↗ Share</button>
+      </div>
     `;
   } catch(e){ el.innerHTML=empty('❌','Error',e.message); }
 }
@@ -1095,6 +1213,7 @@ document.getElementById('sheet-new-log')?.addEventListener('click',()=>{
     console.error('[FieldOS] Gateway unreachable:', e.message);
   }
   loadDashboard();
+  requestWakeLock();
 })();
 </script>
 </body>

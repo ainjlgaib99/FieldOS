@@ -582,13 +582,13 @@ document.addEventListener('visibilitychange', async () => {
 const GATEWAY = 'https://nexus.paynekiller1204.workers.dev';
 const T = {
   projects:    'Projects',
-  logs:        'Daily Logs',
+  logs:        'Logs',
   constraints: 'Constraints',
   comms:       'Communications',
   cos:         'Change Orders',
   rfis:        'RFIs',
   submittals:  'Submittals',
-  team:        'Team',
+  team:        'Crew',
   audit:       'Audit Log'
 };
 
@@ -619,7 +619,7 @@ const AT = {
       headers:{ 'Content-Type':'application/json' },
       body: opts.body ? JSON.stringify(opts.body) : undefined
     });
-    if(!r.ok) throw new Error(`AT ${r.status}`);
+    if(!r.ok){ const body=await r.text(); throw new Error(`AT ${r.status}: ${body}`); }
     return r.json();
   },
   async list(tableId, params={}){
